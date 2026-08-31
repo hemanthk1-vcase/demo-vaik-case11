@@ -1,0 +1,59 @@
+{
+  "description": "When a new user signs up, email all admin users about the pending approval and seed the password-expiry clock for password signups",
+  "name": "On User Signup",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "app_user_auth",
+      "events": [
+        "signup"
+      ]
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "on_user_signup",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "notify_admins": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "notifyAdminsOnSignup",
+            "args": {
+              "user_id": "${ .trigger.user_id }",
+              "email": "${ .trigger.email }",
+              "full_name": "${ .trigger.full_name }",
+              "auth_method": "${ .trigger.auth_method }"
+            }
+          },
+          "then": "seed_password",
+          "x-base44": {
+            "title": "Notify admins of new signup",
+            "description": "Email all admin users about the pending approval"
+          }
+        }
+      },
+      {
+        "seed_password": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "seedPasswordTimestamp",
+            "args": {
+              "user_id": "${ .trigger.user_id }",
+              "auth_method": "${ .trigger.auth_method }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Seed password expiry clock",
+            "description": "Set password_last_changed for password signups"
+          }
+        }
+      }
+    ]
+  }
+}

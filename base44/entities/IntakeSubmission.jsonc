@@ -1,0 +1,88 @@
+{
+  "name": "IntakeSubmission",
+  "type": "object",
+  "properties": {
+    "form_id": {
+      "type": "string"
+    },
+    "form_name": {
+      "type": "string"
+    },
+    "submitted_data": {
+      "type": "string"
+    },
+    "submitter_name": {
+      "type": "string"
+    },
+    "submitter_email": {
+      "type": "string"
+    },
+    "submitter_phone": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "reviewed",
+        "converted",
+        "rejected"
+      ],
+      "default": "new"
+    },
+    "converted_client_id": {
+      "type": "string"
+    },
+    "converted_case_id": {
+      "type": "string"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ip_address": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "form_id"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

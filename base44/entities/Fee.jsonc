@@ -1,0 +1,137 @@
+{
+  "name": "Fee",
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "case_title": {
+      "type": "string"
+    },
+    "case_number": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "lawyer_id": {
+      "type": "string"
+    },
+    "senior_lawyer_id": {
+      "type": "string"
+    },
+    "invoice_number": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "amount_paid": {
+      "type": "number",
+      "default": 0
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "GBP",
+        "INR"
+      ],
+      "default": "USD"
+    },
+    "description": {
+      "type": "string"
+    },
+    "items": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent",
+        "pending",
+        "partial",
+        "paid",
+        "overdue",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "issue_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "paid_date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "case_id",
+    "amount"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.client_id": "{{user.id}}"
+        },
+        {
+          "data.lawyer_id": "{{user.id}}"
+        },
+        {
+          "data.senior_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.lawyer_id": "{{user.id}}"
+        },
+        {
+          "data.senior_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

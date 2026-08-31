@@ -1,17 +1,98 @@
 {
+  "name": "User",
+  "type": "object",
   "properties": {
     "role": {
       "type": "string",
-      "description": "The role of the user in the app",
       "enum": [
+        "client",
+        "lawyer",
+        "senior_lawyer",
         "admin",
         "user"
-      ]
+      ],
+      "default": "user"
+    },
+    "role_type": {
+      "type": "string",
+      "enum": [
+        "client",
+        "lawyer",
+        "senior_lawyer",
+        "admin",
+        "solo"
+      ],
+      "default": "client"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "auth_method": {
+      "type": "string"
+    },
+    "password_last_changed": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "mobile_phone": {
+      "type": "string"
+    },
+    "additional_phone": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "bar_number": {
+      "type": "string"
+    },
+    "specialization": {
+      "type": "string"
+    },
+    "preferred_language": {
+      "type": "string",
+      "enum": [
+        "english",
+        "hindi",
+        "kannada",
+        "tamil",
+        "telugu",
+        "spanish"
+      ],
+      "default": "english"
+    },
+    "country": {
+      "type": "string",
+      "enum": [
+        "united_states",
+        "united_kingdom",
+        "india"
+      ],
+      "default": "united_states"
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "GBP",
+        "INR"
+      ],
+      "default": "USD"
     }
-  },
-  "required": [
-    "role"
-  ],
-  "name": "User",
-  "type": "object"
+  }
 }

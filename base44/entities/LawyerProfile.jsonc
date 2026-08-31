@@ -1,0 +1,162 @@
+{
+  "name": "LawyerProfile",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "bar_registration_number": {
+      "type": "string"
+    },
+    "bar_council_name": {
+      "type": "string"
+    },
+    "jurisdiction_country": {
+      "type": "string",
+      "enum": [
+        "united_states",
+        "united_kingdom",
+        "india"
+      ],
+      "default": "united_states"
+    },
+    "specialization": {
+      "type": "string"
+    },
+    "years_of_experience": {
+      "type": "number"
+    },
+    "education": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    },
+    "profile_photo_url": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "office_address": {
+      "type": "string"
+    },
+    "languages_spoken": {
+      "type": "string"
+    },
+    "is_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "verification_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "rating": {
+      "type": "number",
+      "default": 0
+    },
+    "review_count": {
+      "type": "number",
+      "default": 0
+    },
+    "verification_notes": {
+      "type": "string"
+    },
+    "admin_recommendation": {
+      "type": "string"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending_review",
+        "under_review",
+        "verified",
+        "rejected",
+        "suspended"
+      ],
+      "default": "pending_review"
+    }
+  },
+  "required": [
+    "user_id",
+    "full_name",
+    "bar_registration_number",
+    "bar_council_name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "$and": [
+            {
+              "data.is_verified": true
+            },
+            {
+              "data.is_active": true
+            }
+          ]
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

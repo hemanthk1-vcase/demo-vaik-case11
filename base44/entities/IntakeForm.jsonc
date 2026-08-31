@@ -1,0 +1,84 @@
+{
+  "name": "IntakeForm",
+  "type": "object",
+  "properties": {
+    "form_name": {
+      "type": "string"
+    },
+    "form_description": {
+      "type": "string"
+    },
+    "target_entity": {
+      "type": "string",
+      "enum": [
+        "client",
+        "case",
+        "both"
+      ],
+      "default": "both"
+    },
+    "form_fields": {
+      "type": "string"
+    },
+    "is_published": {
+      "type": "boolean",
+      "default": false
+    },
+    "public_url": {
+      "type": "string"
+    },
+    "success_message": {
+      "type": "string"
+    },
+    "redirect_url": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "form_name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.is_published": true
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

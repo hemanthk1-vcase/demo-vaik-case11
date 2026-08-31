@@ -1,0 +1,80 @@
+{
+  "name": "Lead",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "firm_name": {
+      "type": "string"
+    },
+    "firm_size": {
+      "type": "string",
+      "enum": [
+        "1",
+        "2-9",
+        "10-49",
+        "50+"
+      ],
+      "default": "1"
+    },
+    "practice_area": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "enum": [
+        "united_states",
+        "united_kingdom",
+        "india",
+        "other"
+      ],
+      "default": "united_states"
+    },
+    "preferred_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "challenges": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "contacted",
+        "converted",
+        "rejected"
+      ],
+      "default": "new"
+    },
+    "source": {
+      "type": "string",
+      "default": "marketing_demo"
+    }
+  },
+  "required": [
+    "name",
+    "email"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

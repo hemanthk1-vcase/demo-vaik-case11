@@ -1,0 +1,112 @@
+{
+  "name": "SignatureRequest",
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "case_title": {
+      "type": "string"
+    },
+    "document_name": {
+      "type": "string"
+    },
+    "document_url": {
+      "type": "string"
+    },
+    "signer_name": {
+      "type": "string"
+    },
+    "signer_email": {
+      "type": "string"
+    },
+    "signer_role": {
+      "type": "string",
+      "enum": [
+        "client",
+        "lawyer",
+        "third_party"
+      ],
+      "default": "client"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "viewed",
+        "signed",
+        "declined",
+        "expired"
+      ],
+      "default": "pending"
+    },
+    "request_message": {
+      "type": "string"
+    },
+    "signed_document_url": {
+      "type": "string"
+    },
+    "signature_data": {
+      "type": "string"
+    },
+    "signed_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "audit_trail": {
+      "type": "string"
+    },
+    "created_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "document_name",
+    "document_url",
+    "signer_name",
+    "signer_email",
+    "signer_role"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

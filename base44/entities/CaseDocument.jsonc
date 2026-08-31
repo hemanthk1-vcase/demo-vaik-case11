@@ -1,0 +1,123 @@
+{
+  "name": "CaseDocument",
+  "type": "object",
+  "properties": {
+    "document_id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "case_number": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "uploaded_by": {
+      "type": "string"
+    },
+    "uploaded_by_name": {
+      "type": "string"
+    },
+    "document_name": {
+      "type": "string"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "court_filing",
+        "evidence",
+        "contract",
+        "pleading",
+        "correspondence",
+        "id_proof",
+        "financial_record",
+        "photo",
+        "other"
+      ],
+      "default": "other"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "file_size": {
+      "type": "string"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_confidential": {
+      "type": "boolean",
+      "default": false
+    },
+    "access_level": {
+      "type": "string",
+      "enum": [
+        "all_parties",
+        "lawyer_only",
+        "admin_only"
+      ],
+      "default": "all_parties"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    }
+  },
+  "required": [
+    "case_id",
+    "client_id",
+    "uploaded_by",
+    "document_name",
+    "document_type",
+    "file_url"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.uploaded_by": "{{user.id}}"
+        },
+        {
+          "data.access_level": "all_parties"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.uploaded_by": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.uploaded_by": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

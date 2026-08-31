@@ -1,5 +1,5 @@
 {
-  "name": "untitled",
+  "name": "Vakil Case",
   "site": {
     "installCommand": "npm install",
     "buildCommand": "npm run build",

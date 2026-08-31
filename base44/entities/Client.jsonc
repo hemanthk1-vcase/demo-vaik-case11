@@ -1,0 +1,127 @@
+{
+  "name": "Client",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "phone_country_code": {
+      "type": "string",
+      "default": "+1"
+    },
+    "address": {
+      "type": "string"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "format": "date"
+    },
+    "id_type": {
+      "type": "string",
+      "enum": [
+        "driver_license",
+        "passport",
+        "state_id",
+        "other"
+      ]
+    },
+    "id_number": {
+      "type": "string"
+    },
+    "occupation": {
+      "type": "string"
+    },
+    "emergency_contact": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "notes_log": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prospect",
+        "onboarded",
+        "active",
+        "archived"
+      ],
+      "default": "prospect"
+    },
+    "assigned_lawyer_id": {
+      "type": "string"
+    },
+    "assigned_lawyer_name": {
+      "type": "string"
+    },
+    "conflict_checked": {
+      "type": "boolean",
+      "default": false
+    },
+    "client_user_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "full_name",
+    "email"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.client_user_id": "{{user.id}}"
+        },
+        {
+          "data.assigned_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.assigned_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
