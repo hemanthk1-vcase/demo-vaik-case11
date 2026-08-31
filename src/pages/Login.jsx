@@ -19,7 +19,7 @@ export default function Login() {
   // Already signed-in users shouldn't stare at the login form.
   useEffect(() => {
     base44.auth.isAuthenticated().then((authed) => {
-      if (authed && returnTo === "/") window.location.replace("/vakilcase");
+      if (authed && returnTo === "/") window.location.replace("/");
     });
   }, [returnTo]);
 

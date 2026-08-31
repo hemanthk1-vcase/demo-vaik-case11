@@ -12,6 +12,9 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 // Add page imports here
+import Dashboard from './pages/Dashboard';
+import DashboardLayout from './components/DashboardLayout';
+import SectionPlaceholder from './pages/SectionPlaceholder';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -44,8 +47,22 @@ const AuthenticatedApp = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      {/* Add your page Route elements here */}
-      <Route path="/" element={<Login />} />
+      {/* App pages (with sidebar) */}
+      <Route element={<DashboardLayout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/clients" element={<SectionPlaceholder />} />
+        <Route path="/cases" element={<SectionPlaceholder />} />
+        <Route path="/documents" element={<SectionPlaceholder />} />
+        <Route path="/document-templates" element={<SectionPlaceholder />} />
+        <Route path="/messages" element={<SectionPlaceholder />} />
+        <Route path="/intake-forms" element={<SectionPlaceholder />} />
+        <Route path="/invoices" element={<SectionPlaceholder />} />
+        <Route path="/trust-accounting" element={<SectionPlaceholder />} />
+        <Route path="/time-tracking" element={<SectionPlaceholder />} />
+        <Route path="/tasks" element={<SectionPlaceholder />} />
+        <Route path="/e-signature" element={<SectionPlaceholder />} />
+        <Route path="/email-log" element={<SectionPlaceholder />} />
+      </Route>
       <Route path="/vakilcase" element={<Vakilcase />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
