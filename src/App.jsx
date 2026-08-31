@@ -45,7 +45,7 @@ const AuthenticatedApp = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       {/* Add your page Route elements here */}
-      <Route path="/" element={<Vakilcase />} />
+      <Route path="/" element={<Login />} />
       <Route path="/vakilcase" element={<Vakilcase />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
