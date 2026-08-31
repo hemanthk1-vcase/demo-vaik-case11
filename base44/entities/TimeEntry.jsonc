@@ -1,0 +1,91 @@
+{
+  "name": "TimeEntry",
+  "type": "object",
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "case_title": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "lawyer_name": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "hours": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "billable": {
+      "type": "boolean",
+      "default": true
+    },
+    "rate": {
+      "type": "number"
+    },
+    "is_billed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "case_id",
+    "date",
+    "hours"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

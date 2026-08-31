@@ -1,0 +1,97 @@
+{
+  "name": "DocumentTemplate",
+  "type": "object",
+  "properties": {
+    "template_name": {
+      "type": "string"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "engagement_letter",
+        "demand_letter",
+        "court_filing",
+        "client_update",
+        "contract",
+        "notice",
+        "other"
+      ],
+      "default": "other"
+    },
+    "category": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string",
+      "enum": [
+        "all",
+        "united_states",
+        "united_kingdom",
+        "india"
+      ],
+      "default": "all"
+    },
+    "template_content": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    },
+    "is_firmwide": {
+      "type": "boolean",
+      "default": false
+    },
+    "created_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "template_name",
+    "template_type"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.is_firmwide": true
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "name": "TrustTransaction",
+  "type": "object",
+  "properties": {
+    "trust_account_id": {
+      "type": "string"
+    },
+    "account_name": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "case_title": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "transaction_type": {
+      "type": "string",
+      "enum": [
+        "deposit",
+        "withdrawal",
+        "transfer",
+        "fee_transfer"
+      ],
+      "default": "deposit"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "USD",
+        "GBP",
+        "INR"
+      ],
+      "default": "USD"
+    },
+    "description": {
+      "type": "string"
+    },
+    "reference_number": {
+      "type": "string"
+    },
+    "transaction_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "running_balance": {
+      "type": "number"
+    },
+    "created_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "trust_account_id",
+    "case_id",
+    "client_id",
+    "transaction_type",
+    "amount",
+    "transaction_date"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.client_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        }
+      ]
+    }
+  }
+}

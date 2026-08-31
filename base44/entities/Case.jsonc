@@ -1,0 +1,234 @@
+{
+  "name": "Case",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "case_number": {
+      "type": "string"
+    },
+    "case_category": {
+      "type": "string",
+      "enum": [
+        "criminal_law",
+        "civil_litigation",
+        "family_law",
+        "corporate_business",
+        "employment_labor",
+        "immigration",
+        "real_estate",
+        "estate_planning_probate",
+        "bankruptcy",
+        "tax_law",
+        "constitutional_civil_rights",
+        "administrative_law",
+        "environmental_law",
+        "education_law",
+        "intellectual_property",
+        "personal_injury"
+      ],
+      "default": "civil_litigation"
+    },
+    "case_type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "conflict_check",
+        "engagement",
+        "filed",
+        "discovery",
+        "pre_trial",
+        "trial",
+        "pending_judgment",
+        "closed_won",
+        "closed_lost",
+        "closed_settled",
+        "appealed",
+        "dismissed",
+        "active",
+        "hearing",
+        "closed"
+      ],
+      "default": "intake"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "risk_assessment": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium"
+    },
+    "client_id": {
+      "type": "string"
+    },
+    "client_name": {
+      "type": "string"
+    },
+    "assigned_lawyer_id": {
+      "type": "string"
+    },
+    "assigned_lawyer_name": {
+      "type": "string"
+    },
+    "assigned_senior_lawyer_id": {
+      "type": "string"
+    },
+    "assigned_senior_lawyer_name": {
+      "type": "string"
+    },
+    "court_name": {
+      "type": "string"
+    },
+    "court_department": {
+      "type": "string"
+    },
+    "court_case_id": {
+      "type": "string"
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "jurisdiction_country": {
+      "type": "string",
+      "enum": [
+        "united_states",
+        "united_kingdom",
+        "india"
+      ],
+      "default": "united_states"
+    },
+    "judge_name": {
+      "type": "string"
+    },
+    "opposing_counsel_name": {
+      "type": "string"
+    },
+    "opposing_counsel_contact": {
+      "type": "string"
+    },
+    "claim_amount": {
+      "type": "number"
+    },
+    "statute_of_limitations_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "filing_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "next_hearing_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "closed_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string"
+    },
+    "notes_log": {
+      "type": "string"
+    },
+    "retainer_amount": {
+      "type": "number"
+    },
+    "billing_type": {
+      "type": "string",
+      "enum": [
+        "hourly",
+        "flat_fee",
+        "contingency",
+        "retainer"
+      ],
+      "default": "hourly"
+    },
+    "hourly_rate": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "title",
+    "case_category",
+    "case_type"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.client_id": "{{user.id}}"
+        },
+        {
+          "data.assigned_lawyer_id": "{{user.id}}"
+        },
+        {
+          "data.assigned_senior_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.assigned_lawyer_id": "{{user.id}}"
+        },
+        {
+          "data.assigned_senior_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.assigned_lawyer_id": "{{user.id}}"
+        },
+        {
+          "data.assigned_senior_lawyer_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
