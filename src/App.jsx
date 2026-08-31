@@ -36,6 +36,7 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       {/* Add your page Route elements here */}
+      <Route path="/" element={<Vakilcase />} />
       <Route path="/vakilcase" element={<Vakilcase />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
