@@ -54,7 +54,10 @@ export default function Presentation() {
     <div className="min-h-screen bg-slate-900 text-white flex flex-col">
       <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
         <div className="flex items-center gap-2 font-semibold">
-          <Scale className="w-5 h-5 text-indigo-400" /> Vakil Case — Sales Presentation
+          <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white">
+            <Scale className="w-4 h-4 text-slate-900" />
+          </div>
+          Vakil Case — Sales Presentation
         </div>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" onClick={buildVakilPptx} className="text-white hover:bg-white/10">
@@ -108,6 +111,12 @@ function SlideView({ slide }) {
       <h2 className="text-2xl md:text-4xl font-bold mt-2 leading-tight">{slide.title}</h2>
       {slide.subtitle && <p className="text-base md:text-lg text-slate-500 mt-2 max-w-3xl">{slide.subtitle}</p>}
       <div className="mt-8 flex-1">{slide.content}</div>
+      <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] text-slate-400">
+        <span>© 2026 Vakil Case</span>
+        <span className="flex flex-wrap items-center gap-x-2">
+          <span>vakilcase.com</span><span>·</span><span>app.vakilcase.com</span><span>·</span><span>demo-vaik-case.base44.app</span>
+        </span>
+      </div>
     </div>
   );
 }

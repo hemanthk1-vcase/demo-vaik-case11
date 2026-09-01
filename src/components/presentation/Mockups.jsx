@@ -18,14 +18,17 @@ export function MiniAppFrame({ active, children, title }) {
   return (
     <div className="rounded-xl border border-slate-200 shadow-2xl overflow-hidden bg-white">
       <div className="flex h-[340px]">
-        <div className="w-48 bg-slate-900 text-slate-300 p-3 space-y-1 shrink-0">
-          <div className="flex items-center gap-2 px-2 py-2 mb-3 text-white font-semibold">
-            <Scale className="w-4 h-4" /> Vakil Case
+        <div className="w-48 bg-white border-r border-slate-200 p-3 space-y-1 shrink-0">
+          <div className="flex items-center gap-2 px-1 py-2 mb-3">
+            <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-900 text-white">
+              <Scale className="w-4 h-4" />
+            </div>
+            <span className="font-bold text-slate-900 tracking-tight">Vakil Case</span>
           </div>
           {NAV.map((n) => (
             <div
               key={n.label}
-              className={`flex items-center gap-2 px-2 py-1.5 rounded-md text-xs ${n.label === active ? "bg-indigo-600 text-white" : "text-slate-400"}`}
+              className={`flex items-center gap-2 px-2 py-1.5 rounded-md text-xs ${n.label === active ? "bg-slate-100 text-slate-900 font-medium" : "text-slate-500"}`}
             >
               <n.icon className="w-3.5 h-3.5" /> {n.label}
             </div>

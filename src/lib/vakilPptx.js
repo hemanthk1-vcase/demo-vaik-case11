@@ -8,7 +8,33 @@ const PANEL = "F8FAFC";
 const W = 13.33;
 const H = 7.5;
 
+const FOOTER_TEXT = "© 2026 Vakil Case   ·   vakilcase.com   ·   app.vakilcase.com   ·   demo-vaik-case.base44.app";
+
 const inr = (n) => "₹" + n.toLocaleString("en-IN");
+
+function footer(slide, onDark = false) {
+  slide.addText(FOOTER_TEXT, {
+    x: 0.6, y: 7.06, w: 12.1, h: 0.34,
+    fontSize: 9, color: onDark ? "94A3B8" : GRAY, align: "left",
+  });
+}
+
+/** Brand lockup: dark rounded square with monogram + "Vakil Case" wordmark. */
+function brandLockup(slide, x, y, size = 0.6, light = false) {
+  slide.addShape("roundRect", {
+    x, y, w: size, h: size, rectRadius: 0.08,
+    fill: { color: light ? "FFFFFF" : DARK },
+  });
+  slide.addText("VC", {
+    x, y, w: size, h: size, fontSize: size * 18, bold: true,
+    color: light ? DARK : "FFFFFF", align: "center", valign: "middle",
+  });
+  slide.addText("Vakil Case", {
+    x: x + size + 0.12, y, w: 6, h: size,
+    fontSize: size * 20, bold: true,
+    color: light ? DARK : "FFFFFF", valign: "middle",
+  });
+}
 
 function header(slide, tag, title, subtitle) {
   slide.addShape("rect", { x: 0, y: 0, w: W, h: 0.09, fill: { color: INDIGO } });
@@ -20,7 +46,7 @@ function header(slide, tag, title, subtitle) {
 
 function bullets(slide, items, y, opts = {}) {
   slide.addText(
-    items.map((t, i) => ({ text: t, options: { bullet: true, breakLine: true, paraSpaceAfter: 6 } })),
+    items.map((t) => ({ text: t, options: { bullet: true, breakLine: true, paraSpaceAfter: 6 } })),
     { x: 0.7, y, w: 12, h: 4.5, fontSize: 15, color: DARK, valign: "top", ...opts }
   );
 }
@@ -69,10 +95,12 @@ export function buildVakilPptx() {
   let s = pptx.addSlide();
   s.background = { color: DARK };
   s.addShape("rect", { x: 0, y: 0, w: 0.18, h: H, fill: { color: INDIGO } });
-  s.addText("SALES ENABLEMENT DECK", { x: 1, y: 1.4, w: 10, h: 0.4, fontSize: 13, bold: true, color: "A5B4FC", charSpacing: 3 });
-  s.addText("Vakil Case", { x: 1, y: 2.2, w: 11, h: 1.2, fontSize: 54, bold: true, color: "FFFFFF" });
-  s.addText("The all-in-one practice management platform for modern law firms — cases, clients, billing, documents, and trust accounting in one secure workspace.", { x: 1, y: 3.6, w: 10.5, h: 1.2, fontSize: 18, color: "CBD5E1" });
-  s.addText("15+ Modules   ·   100% INR Billing   ·   Secure Access Control", { x: 1, y: 5.6, w: 11, h: 0.4, fontSize: 14, bold: true, color: "818CF8" });
+  brandLockup(s, 1, 1.3, 0.66, true);
+  s.addText("SALES ENABLEMENT DECK", { x: 1, y: 2.2, w: 10, h: 0.4, fontSize: 13, bold: true, color: "A5B4FC", charSpacing: 3 });
+  s.addText("Vakil Case", { x: 1, y: 2.7, w: 11, h: 1.1, fontSize: 50, bold: true, color: "FFFFFF" });
+  s.addText("The all-in-one practice management platform for modern law firms — cases, clients, billing, documents, and trust accounting in one secure workspace.", { x: 1, y: 4, w: 10.5, h: 1.1, fontSize: 17, color: "CBD5E1" });
+  s.addText("15+ Modules   ·   100% INR Billing   ·   Secure Access Control", { x: 1, y: 5.9, w: 11, h: 0.4, fontSize: 14, bold: true, color: "818CF8" });
+  footer(s, true);
 
   // 2 — Problem
   s = pptx.addSlide();
@@ -94,6 +122,7 @@ export function buildVakilPptx() {
     s.addText(p[0], { x: x + 0.5, y: yy + 0.1, w: 5.3, h: 0.4, fontSize: 14, bold: true, color: DARK });
     s.addText(p[1], { x: x + 0.5, y: yy + 0.5, w: 5.3, h: 0.6, fontSize: 12, color: GRAY });
   });
+  footer(s);
 
   // 3 — Solution
   s = pptx.addSlide();
@@ -115,6 +144,7 @@ export function buildVakilPptx() {
     s.addText(p[0], { x: x + 0.85, y: yy + 0.2, w: 2.9, h: 0.5, fontSize: 14, bold: true, color: DARK, valign: "middle" });
     s.addText(p[1], { x: x + 0.2, y: yy + 0.85, w: 3.5, h: 0.85, fontSize: 12, color: GRAY });
   });
+  footer(s);
 
   // 4 — Dashboard
   s = pptx.addSlide();
@@ -131,6 +161,7 @@ export function buildVakilPptx() {
     "Upcoming hearings surfaced so no court date is ever missed.",
     "Recent activity shows exactly what changed across the firm today.",
   ], y + 3.2, { x: 0.7, w: 12, h: 1.5, fontSize: 13 });
+  footer(s);
 
   // 5 — Clients
   s = pptx.addSlide();
@@ -146,6 +177,7 @@ export function buildVakilPptx() {
     "Lifecycle statuses — prospect → onboarded → active → archived.",
     "Conflict checks flag risks before engagement to protect the firm.",
   ], y + 2.4, { x: 0.7, w: 12, h: 1.8, fontSize: 14 });
+  footer(s);
 
   // 6 — Cases
   s = pptx.addSlide();
@@ -161,6 +193,7 @@ export function buildVakilPptx() {
     "Full lifecycle — intake → conflict → engagement → filed → trial → closed.",
     "Risk & priority surface the matters that need attention first.",
   ], y + 2.4, { x: 0.7, w: 12, h: 1.8, fontSize: 14 });
+  footer(s);
 
   // 7 — Lawyer Management
   s = pptx.addSlide();
@@ -176,6 +209,7 @@ export function buildVakilPptx() {
     "Verification workflow — pending → under review → verified → suspended.",
     "Ratings & reviews to track performance and client satisfaction.",
   ], y + 2.4, { x: 0.7, w: 12, h: 1.8, fontSize: 14 });
+  footer(s);
 
   // 8 — Invoices
   s = pptx.addSlide();
@@ -191,6 +225,7 @@ export function buildVakilPptx() {
     "Payment tracking — partial payments and outstanding balances at a glance.",
     "Status automation — draft → sent → partial → paid, with overdue alerts.",
   ], y + 2.4, { x: 0.7, w: 12, h: 1.8, fontSize: 14 });
+  footer(s);
 
   // 9 — Documents & E-Sign
   s = pptx.addSlide();
@@ -210,6 +245,7 @@ export function buildVakilPptx() {
     s.addText(p[0], { x: x + 0.85, y: yy + 0.25, w: 5, h: 0.5, fontSize: 15, bold: true, color: DARK, valign: "middle" });
     s.addText(p[1], { x: x + 0.2, y: yy + 0.9, w: 5.6, h: 0.7, fontSize: 12, color: GRAY });
   });
+  footer(s);
 
   // 10 — Operations
   s = pptx.addSlide();
@@ -222,6 +258,7 @@ export function buildVakilPptx() {
     "Email Log — track inbound and outbound correspondence linked to cases and clients.",
     "Court Updates — log hearing outcomes, judges, and next dates to keep every matter current.",
   ], y, { fontSize: 15 });
+  footer(s);
 
   // 11 — Security
   s = pptx.addSlide();
@@ -236,6 +273,7 @@ export function buildVakilPptx() {
   s.addShape("roundRect", { x: 0.6, y: 5.5, w: 12.1, h: 1.3, fill: { color: "ECFDF5" }, line: { color: "A7F3D0" } });
   s.addText("Your data stays yours", { x: 0.9, y: 5.6, w: 11, h: 0.4, fontSize: 16, bold: true, color: "065F46" });
   s.addText("Confidential client information, case strategy, and financials — protected at every layer.", { x: 0.9, y: 6.0, w: 11, h: 0.5, fontSize: 13, color: "047857" });
+  footer(s);
 
   // 12 — Why Vakil Case
   s = pptx.addSlide();
@@ -256,6 +294,7 @@ export function buildVakilPptx() {
     s.addText(p[0], { x: x + 0.2, y: yy + 0.2, w: 3.5, h: 0.4, fontSize: 15, bold: true, color: INDIGO });
     s.addText(p[1], { x: x + 0.2, y: yy + 0.65, w: 3.5, h: 1, fontSize: 12, color: GRAY });
   });
+  footer(s);
 
   // 13 — Pricing
   s = pptx.addSlide();
@@ -277,16 +316,19 @@ export function buildVakilPptx() {
     s.addText(p[2], { x, y: y + 1.3, w: pw, h: 0.3, fontSize: 12, color: GRAY, align: "center" });
     s.addText(p[3], { x: x + 0.2, y: y + 1.9, w: pw - 0.4, h: 2.1, fontSize: 13, color: DARK, valign: "top" });
   });
+  footer(s);
 
   // 14 — CTA
   s = pptx.addSlide();
   s.background = { color: INDIGO };
-  s.addText("LET'S TALK", { x: 1, y: 1.6, w: 11, h: 0.4, fontSize: 13, bold: true, color: "C7D2FE", charSpacing: 3, align: "center" });
-  s.addText("See Vakil Case in action", { x: 1, y: 2.2, w: 11.3, h: 1, fontSize: 40, bold: true, color: "FFFFFF", align: "center" });
-  s.addText("Book a live walkthrough and we'll tailor the demo to your practice area.", { x: 2, y: 3.4, w: 9.3, h: 0.6, fontSize: 18, color: "E0E7FF", align: "center" });
-  s.addText("30-minute live demo  ·  Tailored to your practice area  ·  Free trial setup", { x: 1, y: 4.4, w: 11.3, h: 0.5, fontSize: 15, color: "C7D2FE", align: "center" });
-  s.addShape("roundRect", { x: 5.16, y: 5.4, w: 3, h: 0.8, fill: { color: "FFFFFF" } });
-  s.addText("Book a demo", { x: 5.16, y: 5.4, w: 3, h: 0.8, fontSize: 16, bold: true, color: INDIGO, align: "center", valign: "middle" });
+  brandLockup(s, 5, 1.2, 0.6, true);
+  s.addText("LET'S TALK", { x: 1, y: 2, w: 11.3, h: 0.4, fontSize: 13, bold: true, color: "C7D2FE", charSpacing: 3, align: "center" });
+  s.addText("See Vakil Case in action", { x: 1, y: 2.5, w: 11.3, h: 1, fontSize: 40, bold: true, color: "FFFFFF", align: "center" });
+  s.addText("Book a live walkthrough and we'll tailor the demo to your practice area.", { x: 2, y: 3.7, w: 9.3, h: 0.6, fontSize: 18, color: "E0E7FF", align: "center" });
+  s.addText("30-minute live demo  ·  Tailored to your practice area  ·  Free trial setup", { x: 1, y: 4.7, w: 11.3, h: 0.5, fontSize: 15, color: "C7D2FE", align: "center" });
+  s.addShape("roundRect", { x: 5.16, y: 5.5, w: 3, h: 0.8, fill: { color: "FFFFFF" } });
+  s.addText("Book a demo", { x: 5.16, y: 5.5, w: 3, h: 0.8, fontSize: 16, bold: true, color: INDIGO, align: "center", valign: "middle" });
+  footer(s, true);
 
   return pptx.writeFile({ fileName: "Vakil-Case-Sales-Deck.pptx" });
 }

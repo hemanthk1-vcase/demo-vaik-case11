@@ -32,8 +32,11 @@ export const slides = [
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="inline-flex items-center justify-center w-40 h-40 rounded-3xl bg-indigo-600 text-white shadow-2xl">
-            <Scale className="w-20 h-20" />
+          <div className="flex items-center gap-5">
+            <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-slate-900 text-white shadow-2xl">
+              <Scale className="w-12 h-12" />
+            </div>
+            <span className="text-3xl font-bold text-slate-900 tracking-tight">Vakil Case</span>
           </div>
         </div>
       </div>
@@ -324,8 +327,10 @@ export const slides = [
             <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-indigo-600" /> Free trial setup</li>
           </ul>
         </div>
-        <div className="rounded-2xl bg-indigo-600 text-white p-8 text-center shadow-2xl">
-          <Scale className="w-12 h-12 mx-auto mb-4" />
+        <div className="rounded-2xl bg-slate-900 text-white p-8 text-center shadow-2xl">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white text-slate-900 mx-auto mb-4">
+            <Scale className="w-7 h-7" />
+          </div>
           <h3 className="text-xl font-bold">Vakil Case</h3>
           <p className="text-indigo-100 text-sm mt-1">The modern practice management platform</p>
           <div className="mt-6 inline-flex items-center gap-2 bg-white text-indigo-700 font-semibold px-6 py-3 rounded-lg">
