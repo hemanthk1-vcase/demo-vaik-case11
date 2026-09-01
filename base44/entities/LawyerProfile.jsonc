@@ -111,22 +111,14 @@
           }
         },
         {
-          "data.user_id": "{{user.id}}"
-        },
-        {
           "created_by_id": "{{user.id}}"
-        },
-        {
-          "$and": [
-            {
-              "data.is_verified": true
-            },
-            {
-              "data.is_active": true
-            }
-          ]
         }
       ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
     },
     "update": {
       "$or": [
@@ -134,9 +126,6 @@
           "user_condition": {
             "role": "admin"
           }
-        },
-        {
-          "data.user_id": "{{user.id}}"
         },
         {
           "created_by_id": "{{user.id}}"
@@ -149,9 +138,6 @@
           "user_condition": {
             "role": "admin"
           }
-        },
-        {
-          "data.user_id": "{{user.id}}"
         },
         {
           "created_by_id": "{{user.id}}"
