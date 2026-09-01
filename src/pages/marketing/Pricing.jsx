@@ -30,7 +30,7 @@ const PLANS = {
   USD: [
     {
       name: "Starter",
-      monthly: 19, yearly: 190, currency: "USD",
+      monthly: 25, yearly: 250, currency: "USD",
       features: ["1 user", "25 cases", "Invoicing", "Documents", "Client CRM"],
       highlight: true,
     },
@@ -41,9 +41,15 @@ const PLANS = {
       features: ["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking"],
     },
     {
+      name: "Team",
+      monthly: 150, yearly: 1500, currency: "USD",
+      includes: "Professional",
+      features: ["10 users", "200 cases"],
+    },
+    {
       name: "Enterprise",
       custom: true, currency: "USD",
-      includes: "Professional",
+      includes: "Team",
       features: ["Multi-lawyer firm", "SSO + audit logs", "Priority support", "Dedicated onboarding"],
     },
   ],
@@ -133,7 +139,7 @@ export default function Pricing() {
                 )}
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className={`grid gap-6 ${plans.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3"}`}>
                 {plans.map((p) => {
                   const price = p.custom ? "Custom" : fmt(cycle === "monthly" ? p.monthly : p.yearly, p.currency);
                   const period = p.custom ? "" : cycle === "monthly" ? "/month" : "/year";
