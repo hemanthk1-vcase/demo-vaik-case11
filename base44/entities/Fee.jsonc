@@ -36,11 +36,9 @@
     "currency": {
       "type": "string",
       "enum": [
-        "USD",
-        "GBP",
         "INR"
       ],
-      "default": "USD"
+      "default": "INR"
     },
     "description": {
       "type": "string"

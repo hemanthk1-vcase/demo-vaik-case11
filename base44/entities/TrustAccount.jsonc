@@ -22,11 +22,9 @@
     "currency": {
       "type": "string",
       "enum": [
-        "USD",
-        "GBP",
         "INR"
       ],
-      "default": "USD"
+      "default": "INR"
     },
     "current_balance": {
       "type": "number",
