@@ -63,11 +63,13 @@
         },
         {
           "created_by_id": "{{user.id}}"
-        },
-        {
-          "data.is_firmwide": true
         }
       ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
     },
     "update": {
       "$or": [
