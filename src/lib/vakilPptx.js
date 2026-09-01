@@ -8,7 +8,7 @@ const PANEL = "F8FAFC";
 const W = 13.33;
 const H = 7.5;
 
-const FOOTER_TEXT = "© 2026 Vakil Case   ·   vakilcase.com   ·   app.vakilcase.com   ·   demo-vaik-case.base44.app";
+const FOOTER_TEXT = "© 2026 Vakil Case   ·   www.vakilcase.com";
 
 const inr = (n) => "₹" + n.toLocaleString("en-IN");
 

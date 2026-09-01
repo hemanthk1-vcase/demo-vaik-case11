@@ -114,9 +114,7 @@ function SlideView({ slide }) {
       <div className="mt-8 flex-1">{slide.content}</div>
       <div className="mt-6 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] text-slate-400">
         <span>© 2026 Vakil Case</span>
-        <span className="flex flex-wrap items-center gap-x-2">
-          <span>vakilcase.com</span><span>·</span><span>app.vakilcase.com</span><span>·</span><span>demo-vaik-case.base44.app</span>
-        </span>
+        <span>www.vakilcase.com</span>
       </div>
     </div>
   );
