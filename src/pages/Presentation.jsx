@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { slides } from "@/components/presentation/Slides";
-import { ChevronLeft, ChevronRight, Maximize, Minimize, Printer, Scale, Download } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize, Minimize, Printer, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buildVakilPptx } from "@/lib/vakilPptx";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Presentation() {
   const [index, setIndex] = useState(0);
@@ -54,9 +55,9 @@ export default function Presentation() {
     <div className="min-h-screen bg-slate-900 text-white flex flex-col">
       <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
         <div className="flex items-center gap-2 font-semibold">
-          <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white">
-            <Scale className="w-4 h-4 text-slate-900" />
-          </div>
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white p-1">
+            <BrandLogo className="h-6 w-6" />
+          </span>
           Vakil Case — Sales Presentation
         </div>
         <div className="flex items-center gap-2">

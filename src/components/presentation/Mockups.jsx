@@ -1,9 +1,10 @@
 import React from "react";
 import {
-  Scale, LayoutDashboard, Users, Briefcase, GraduationCap,
+  LayoutDashboard, Users, Briefcase, GraduationCap,
   Receipt, FileText, FileSignature, Clock, CheckSquare,
   Landmark, Mail,
 } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 
 export const NAV = [
   { icon: LayoutDashboard, label: "Dashboard" },
@@ -20,9 +21,7 @@ export function MiniAppFrame({ active, children, title }) {
       <div className="flex h-[340px]">
         <div className="w-48 bg-white border-r border-slate-200 p-3 space-y-1 shrink-0">
           <div className="flex items-center gap-2 px-1 py-2 mb-3">
-            <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-900 text-white">
-              <Scale className="w-4 h-4" />
-            </div>
+            <BrandLogo className="h-8 w-8" />
             <span className="font-bold text-slate-900 tracking-tight">Vakil Case</span>
           </div>
           {NAV.map((n) => (
