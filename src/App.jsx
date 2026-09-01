@@ -21,6 +21,13 @@ import Fees from './pages/Fees';
 import LawyerManagement from './pages/LawyerManagement';
 import Presentation from './pages/Presentation';
 import PresentationUS from './pages/PresentationUS';
+import MarketingLayout from './components/marketing/MarketingLayout';
+import Landing from './pages/marketing/Landing';
+import Features from './pages/marketing/Features';
+import ForLawyers from './pages/marketing/ForLawyers';
+import ForClients from './pages/marketing/ForClients';
+import Pricing from './pages/marketing/Pricing';
+import About from './pages/marketing/About';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -48,6 +55,15 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
+      {/* Marketing site (public) */}
+      <Route element={<MarketingLayout />}>
+        <Route path="/welcome" element={<Landing />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/for-lawyers" element={<ForLawyers />} />
+        <Route path="/for-clients" element={<ForClients />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/about" element={<About />} />
+      </Route>
       {/* Auth routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
