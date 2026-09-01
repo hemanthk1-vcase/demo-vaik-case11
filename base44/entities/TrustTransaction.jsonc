@@ -36,11 +36,9 @@
     "currency": {
       "type": "string",
       "enum": [
-        "USD",
-        "GBP",
         "INR"
       ],
-      "default": "USD"
+      "default": "INR"
     },
     "description": {
       "type": "string"
@@ -77,11 +75,13 @@
         },
         {
           "created_by_id": "{{user.id}}"
-        },
-        {
-          "data.client_id": "{{user.id}}"
         }
       ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
     },
     "update": {
       "$or": [
