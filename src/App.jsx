@@ -20,6 +20,7 @@ import Cases from './pages/Cases';
 import Fees from './pages/Fees';
 import LawyerManagement from './pages/LawyerManagement';
 import Presentation from './pages/Presentation';
+import PresentationUS from './pages/PresentationUS';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -70,6 +71,7 @@ const AuthenticatedApp = () => {
         <Route path="/email-log" element={<SectionPlaceholder />} />
       </Route>
       <Route path="/presentation" element={<Presentation />} />
+      <Route path="/us-presentation" element={<PresentationUS />} />
       <Route path="/vakilcase" element={<Vakilcase />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
