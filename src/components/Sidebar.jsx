@@ -5,6 +5,7 @@ import {
   Scale, LayoutDashboard, Users, Briefcase, FileText, Files, MessageSquare,
   ClipboardList, Receipt, Landmark, Clock, CheckSquare, PenTool, Mail, LogOut,
   GraduationCap,
+  Presentation,
 } from "lucide-react";
 
 const NAV = [
@@ -12,6 +13,7 @@ const NAV = [
   { to: "/clients", label: "Clients", icon: Users },
   { to: "/cases", label: "Cases", icon: Briefcase },
   { to: "/lawyer-management", label: "Lawyer Management", icon: GraduationCap },
+  { to: "/presentation", label: "Sales Deck", icon: Presentation },
   { to: "/documents", label: "Documents", icon: FileText },
   { to: "/document-templates", label: "Document Templates", icon: Files },
   { to: "/messages", label: "Messages", icon: MessageSquare },
