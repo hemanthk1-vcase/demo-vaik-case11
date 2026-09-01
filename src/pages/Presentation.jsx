@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { slides } from "@/components/presentation/Slides";
-import { ChevronLeft, ChevronRight, Maximize, Minimize, Printer, Scale } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize, Minimize, Printer, Scale, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { buildVakilPptx } from "@/lib/vakilPptx";
 
 export default function Presentation() {
   const [index, setIndex] = useState(0);
@@ -56,6 +57,9 @@ export default function Presentation() {
           <Scale className="w-5 h-5 text-indigo-400" /> Vakil Case — Sales Presentation
         </div>
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={buildVakilPptx} className="text-white hover:bg-white/10">
+            <Download className="w-4 h-4 mr-1" /> Download PPTX
+          </Button>
           <Button variant="ghost" size="sm" onClick={doPrint} className="text-white hover:bg-white/10">
             <Printer className="w-4 h-4 mr-1" /> Export PDF
           </Button>
