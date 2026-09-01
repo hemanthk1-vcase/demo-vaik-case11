@@ -15,6 +15,10 @@ import ScrollToTop from './components/ScrollToTop';
 import Dashboard from './pages/Dashboard';
 import DashboardLayout from './components/DashboardLayout';
 import SectionPlaceholder from './pages/SectionPlaceholder';
+import Clients from './pages/Clients';
+import Cases from './pages/Cases';
+import Fees from './pages/Fees';
+import LawyerManagement from './pages/LawyerManagement';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -50,13 +54,14 @@ const AuthenticatedApp = () => {
       {/* App pages (with sidebar) */}
       <Route element={<DashboardLayout />}>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/clients" element={<SectionPlaceholder />} />
-        <Route path="/cases" element={<SectionPlaceholder />} />
+        <Route path="/clients" element={<Clients />} />
+        <Route path="/cases" element={<Cases />} />
+        <Route path="/lawyer-management" element={<LawyerManagement />} />
         <Route path="/documents" element={<SectionPlaceholder />} />
         <Route path="/document-templates" element={<SectionPlaceholder />} />
         <Route path="/messages" element={<SectionPlaceholder />} />
         <Route path="/intake-forms" element={<SectionPlaceholder />} />
-        <Route path="/invoices" element={<SectionPlaceholder />} />
+        <Route path="/invoices" element={<Fees />} />
         <Route path="/trust-accounting" element={<SectionPlaceholder />} />
         <Route path="/time-tracking" element={<SectionPlaceholder />} />
         <Route path="/tasks" element={<SectionPlaceholder />} />
