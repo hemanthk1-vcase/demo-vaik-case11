@@ -50,11 +50,13 @@
         },
         {
           "created_by_id": "{{user.id}}"
-        },
-        {
-          "data.is_published": true
         }
       ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
     },
     "update": {
       "$or": [
