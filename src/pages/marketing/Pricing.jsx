@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const fmt = (n, currency) =>
@@ -66,13 +66,15 @@ const FAQ = {
 
 function Toggle({ options, value, onChange }) {
   return (
-    <div className="inline-flex rounded-lg border border-slate-700 bg-slate-900 p-1">
+    <div className="inline-flex rounded-lg border border-slate-200 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-900">
       {options.map((opt) => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
-            value === opt.value ? "bg-slate-700 text-white shadow-sm" : "text-slate-400 hover:text-slate-200"
+            value === opt.value
+              ? "bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white"
+              : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
           }`}
         >
           {opt.label}
@@ -85,103 +87,118 @@ function Toggle({ options, value, onChange }) {
 export default function Pricing() {
   const [region, setRegion] = useState("INR");
   const [cycle, setCycle] = useState("monthly");
+  const [mode, setMode] = useState("dark"); // 'dark' | 'light'
   const plans = PLANS[region];
 
   return (
-    <div className="bg-slate-950 text-slate-100">
-      {/* Hero */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold">Simple, transparent pricing</h1>
-          <p className="mt-4 text-lg text-slate-400">Choose your region. No free tier — every plan is production-ready.</p>
-          <div className="mt-8 flex justify-center">
-            <Toggle
-              options={[{ value: "INR", label: "🇮🇳 India" }, { value: "USD", label: "🇺🇸 US" }]}
-              value={region}
-              onChange={setRegion}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Plans box — billing toggle lives inside the box */}
-      <section className="pb-12">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 md:p-8">
-            <div className="flex flex-col items-center gap-3 mb-8">
+    <div className={mode === "dark" ? "dark" : ""}>
+      <div className="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors">
+        {/* Hero */}
+        <section className="py-16 md:py-20 bg-slate-50 dark:bg-transparent">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold">Simple, transparent pricing</h1>
+              <button
+                onClick={() => setMode((m) => (m === "dark" ? "light" : "dark"))}
+                className="p-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-white"
+                aria-label="Toggle theme"
+                title={mode === "dark" ? "Switch to light" : "Switch to dark"}
+              >
+                {mode === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            </div>
+            <p className="text-lg text-slate-600 dark:text-slate-400">Choose your region. No free tier — every plan is production-ready.</p>
+            <div className="mt-8 flex justify-center">
               <Toggle
-                options={[{ value: "monthly", label: "Monthly" }, { value: "yearly", label: "Yearly" }]}
-                value={cycle}
-                onChange={setCycle}
+                options={[{ value: "INR", label: "🇮🇳 India" }, { value: "USD", label: "🇺🇸 US" }]}
+                value={region}
+                onChange={setRegion}
               />
-              {cycle === "yearly" && (
-                <p className="text-sm text-emerald-400 font-medium">Save ~17% with annual billing</p>
-              )}
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {plans.map((p) => {
-                const price = p.custom ? "Custom" : fmt(cycle === "monthly" ? p.monthly : p.yearly, p.currency);
-                const period = p.custom ? "" : cycle === "monthly" ? "/month" : "/year";
-                return (
-                  <div
-                    key={p.name}
-                    className={`rounded-2xl border p-6 flex flex-col ${
-                      p.highlight ? "border-indigo-500 ring-2 ring-indigo-500" : "border-slate-800 bg-slate-900"
-                    }`}
-                  >
-                    <div className="text-sm font-semibold text-slate-400">{p.name}</div>
-                    <div className="mt-2 flex items-end gap-1">
-                      <span className="text-3xl font-bold">{price}</span>
-                      <span className="text-sm text-slate-400 mb-1">{period}</span>
-                    </div>
-                    <ul className="mt-5 space-y-2 text-sm text-slate-300 flex-1">
-                      {p.includes && (
-                        <li className="text-slate-400 italic mb-1">Everything in {p.includes}, plus:</li>
-                      )}
-                      {p.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2">
-                          <Check className="w-4 h-4 text-indigo-400 shrink-0" /> {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button className="mt-6 w-full" variant={p.highlight ? "default" : "outline"} asChild>
-                      <Link to="/register">Choose {p.name}</Link>
-                    </Button>
-                  </div>
-                );
-              })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <section className="py-16 bg-slate-900">
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center">Frequently asked questions</h2>
-          <div className="mt-8 space-y-4">
-            {FAQ[region].map(([q, a]) => (
-              <div key={q} className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-                <div className="font-semibold text-slate-100">{q}</div>
-                <div className="text-sm text-slate-400 mt-1">{a}</div>
+        {/* Plans box — billing toggle lives inside the box */}
+        <section className="pb-12">
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900/60">
+              <div className="flex flex-col items-center gap-3 mb-8">
+                <Toggle
+                  options={[{ value: "monthly", label: "Monthly" }, { value: "yearly", label: "Yearly" }]}
+                  value={cycle}
+                  onChange={setCycle}
+                />
+                {cycle === "yearly" && (
+                  <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Save ~17% with annual billing</p>
+                )}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* CTA */}
-      <section className="py-16 text-center">
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-3xl font-bold">Ready to modernise your practice?</h2>
-          <div className="mt-6">
-            <Button size="lg" asChild>
-              <Link to="/register">Start now <ArrowRight className="w-4 h-4 ml-1" /></Link>
-            </Button>
+              <div className="grid md:grid-cols-3 gap-6">
+                {plans.map((p) => {
+                  const price = p.custom ? "Custom" : fmt(cycle === "monthly" ? p.monthly : p.yearly, p.currency);
+                  const period = p.custom ? "" : cycle === "monthly" ? "/month" : "/year";
+                  return (
+                    <div
+                      key={p.name}
+                      className={`rounded-2xl border p-6 flex flex-col ${
+                        p.highlight
+                          ? "border-indigo-600 ring-2 ring-indigo-600 dark:border-indigo-500 dark:ring-indigo-500"
+                          : "border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900"
+                      }`}
+                    >
+                      <div className="text-sm font-semibold text-slate-500 dark:text-slate-400">{p.name}</div>
+                      <div className="mt-2 flex items-end gap-1">
+                        <span className="text-3xl font-bold">{price}</span>
+                        <span className="text-sm text-slate-500 dark:text-slate-400 mb-1">{period}</span>
+                      </div>
+                      <ul className="mt-5 space-y-2 text-sm text-slate-600 dark:text-slate-300 flex-1">
+                        {p.includes && (
+                          <li className="text-slate-400 dark:text-slate-500 italic mb-1">Everything in {p.includes}, plus:</li>
+                        )}
+                        {p.features.map((f) => (
+                          <li key={f} className="flex items-center gap-2">
+                            <Check className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" /> {f}
+                          </li>
+                        ))}
+                      </ul>
+                      <Button className="mt-6 w-full" variant={p.highlight ? "default" : "outline"} asChild>
+                        <Link to="/register">Choose {p.name}</Link>
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-16 bg-slate-50 dark:bg-slate-900">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center">Frequently asked questions</h2>
+            <div className="mt-8 space-y-4">
+              {FAQ[region].map(([q, a]) => (
+                <div key={q} className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+                  <div className="font-semibold text-slate-900 dark:text-slate-100">{q}</div>
+                  <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">{a}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-16 text-center">
+          <div className="max-w-3xl mx-auto px-4">
+            <h2 className="text-3xl font-bold">Ready to modernise your practice?</h2>
+            <div className="mt-6">
+              <Button size="lg" asChild>
+                <Link to="/register">Start now <ArrowRight className="w-4 h-4 ml-1" /></Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
