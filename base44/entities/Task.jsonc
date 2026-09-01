@@ -56,12 +56,14 @@
           }
         },
         {
-          "data.assigned_to_id": "{{user.id}}"
-        },
-        {
           "created_by_id": "{{user.id}}"
         }
       ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
     },
     "update": {
       "$or": [
@@ -69,9 +71,6 @@
           "user_condition": {
             "role": "admin"
           }
-        },
-        {
-          "data.assigned_to_id": "{{user.id}}"
         },
         {
           "created_by_id": "{{user.id}}"
@@ -84,9 +83,6 @@
           "user_condition": {
             "role": "admin"
           }
-        },
-        {
-          "data.assigned_to_id": "{{user.id}}"
         },
         {
           "created_by_id": "{{user.id}}"
