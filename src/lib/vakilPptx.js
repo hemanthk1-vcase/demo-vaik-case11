@@ -19,7 +19,7 @@ function footer(slide, onDark = false) {
   });
 }
 
-const LOGO_URL = "https://media.base44.com/images/public/6a95d675a12ae82453682890/0b1bf5c4d_generated_image.png";
+const LOGO_URL = "https://media.base44.com/images/public/6a95d675a12ae82453682890/0ae5015c5_generated_image.png";
 
 /** Website logo (scales + sword + "V"), preserved in its dark charcoal color. */
 function brandLogo(slide, x, y, size = 1.2, onDark = false) {
