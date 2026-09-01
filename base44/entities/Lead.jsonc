@@ -66,6 +66,11 @@
         "role": "admin"
       }
     },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
     "update": {
       "user_condition": {
         "role": "admin"
