@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "@/components/ui/image";
 
 export const VAKIL_LOGO_URL =
-  "https://media.base44.com/images/public/6a846b9eda94a43027f07885/9ad413991_logo.png";
+  "https://media.base44.com/images/public/6a95d675a12ae82453682890/0b1bf5c4d_generated_image.png";
 
 /**
  * The official Vakil Case logo (scales + sword + "V") in its dark charcoal
