@@ -4,9 +4,10 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Mail, Lock, Loader2, Scale } from "lucide-react";
+import { Mail, Lock, Loader2 } from "lucide-react";
 import GoogleIcon from "@/components/GoogleIcon";
 import { MicrosoftIcon, FacebookIcon, AppleIcon } from "@/components/SocialAuthIcons";
+import BrandLogo from "@/components/BrandLogo";
 import { safeReturnTo } from "@/lib/authReturnTo";
 
 export default function Login() {
@@ -49,9 +50,7 @@ export default function Login() {
       <div className="w-full max-w-md bg-card rounded-2xl shadow-sm border border-border p-8">
         {/* Logo + heading */}
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary mb-3">
-            <Scale className="w-7 h-7 text-primary-foreground" aria-hidden="true" />
-          </div>
+          <BrandLogo className="h-20 w-20 mb-3" />
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome to Vakil Case</h1>
           <p className="text-muted-foreground mt-1">Sign in to continue</p>
         </div>

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import {
-  Scale, LayoutDashboard, Users, Briefcase, FileText, Files, MessageSquare,
+  LayoutDashboard, Users, Briefcase, FileText, Files, MessageSquare,
   ClipboardList, Receipt, Landmark, Clock, CheckSquare, PenTool, Mail, LogOut,
   GraduationCap,
   Presentation,
 } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
@@ -49,9 +50,7 @@ export default function Sidebar() {
     <aside className="hidden md:flex w-64 shrink-0 flex-col bg-card border-r border-border h-screen sticky top-0">
       {/* Brand */}
       <div className="flex items-center gap-2 px-5 h-16 border-b border-border">
-        <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-primary">
-          <Scale className="w-5 h-5 text-primary-foreground" />
-        </div>
+        <BrandLogo className="h-12 w-12" />
         <span className="font-bold text-lg tracking-tight">Vakil Case</span>
       </div>
 
