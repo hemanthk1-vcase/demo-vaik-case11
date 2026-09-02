@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, Loader2 } from "lucide-react";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import GoogleIcon from "@/components/GoogleIcon";
 import { MicrosoftIcon, FacebookIcon, AppleIcon } from "@/components/SocialAuthIcons";
 import BrandLogo from "@/components/BrandLogo";
@@ -16,22 +17,67 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [loginAs, setLoginAs] = useState("client");
+  const [otp, setOtp] = useState(null);
+  const [otpCode, setOtpCode] = useState("");
+  const [otpError, setOtpError] = useState("");
   const returnTo = safeReturnTo();
   const justRegistered = new URLSearchParams(window.location.search).get("registered") === "1";
+
+  // Route by the role the user explicitly chose on this page.
+  const signIn = async () => {
+    await base44.auth.loginViaEmailPassword(email, password);
+    window.location.href = returnTo !== "/" ? returnTo : loginAs === "client" ? "/client-portal" : "/";
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      await base44.auth.loginViaEmailPassword(email, password);
-      // Route by the role the user explicitly chose on this page.
-      const dest = returnTo !== "/" ? returnTo : loginAs === "client" ? "/client-portal" : "/";
-      window.location.href = dest;
+      if (loginAs === "client") {
+        // Second factor: clients receive a one-time code on their registered
+        // email before the password is accepted.
+        const res = await base44.functions.invoke("sendClientLoginOtp", { email });
+        const data = res?.data ?? res;
+        if (data?.challenge) {
+          setOtpCode("");
+          setOtpError("");
+          setOtp({ challenge: data.challenge, email });
+          return;
+        }
+        // This account doesn't require the email code — sign in directly.
+        await signIn();
+      } else {
+        await signIn();
+      }
     } catch (err) {
-      setError(err.message || "Invalid email or password");
+      setError(err?.response?.data?.error || err.message || "Invalid email or password");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setOtpError("");
+    setLoading(true);
+    try {
+      await base44.functions.invoke("verifyClientLoginOtp", { challenge: otp.challenge, code: otpCode });
+      await signIn();
+    } catch (err) {
+      setOtpError(err?.response?.data?.error || err.message || "Invalid or expired code");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    setOtpError("");
+    try {
+      const res = await base44.functions.invoke("sendClientLoginOtp", { email });
+      const data = res?.data ?? res;
+      if (data?.challenge) setOtp({ challenge: data.challenge, email });
+    } catch (err) {
+      setOtpError(err?.response?.data?.error || err.message || "Could not resend code");
     }
   };
 
@@ -41,6 +87,62 @@ export default function Login() {
     { id: "facebook", label: "Continue with Facebook", Icon: FacebookIcon },
     { id: "apple", label: "Continue with Apple", Icon: AppleIcon },
   ];
+
+  if (otp) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4 py-10">
+        <div className="w-full max-w-md bg-card rounded-2xl shadow-sm border border-border p-8">
+          <div className="flex flex-col items-center text-center mb-6">
+            <BrandLogo className="h-20 w-20 mb-3" />
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">Check your email</h1>
+            <p className="text-muted-foreground mt-1">
+              We sent a one-time sign-in code to {otp.email}. Enter it to finish signing in.
+            </p>
+          </div>
+          {otpError && (
+            <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">{otpError}</div>
+          )}
+          <div className="flex justify-center mb-4">
+            <InputOTP maxLength={6} value={otpCode} onChange={setOtpCode} autoFocus autoComplete="one-time-code">
+              <InputOTPGroup>
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <InputOTPSlot key={i} index={i} />
+                ))}
+              </InputOTPGroup>
+            </InputOTP>
+          </div>
+          <Button className="w-full h-11 font-medium" onClick={handleVerifyOtp} disabled={loading || otpCode.length < 6}>
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Verifying...
+              </>
+            ) : (
+              "Verify & sign in"
+            )}
+          </Button>
+          <p className="text-center text-sm text-muted-foreground mt-4">
+            Didn't receive the code?{" "}
+            <button onClick={handleResendOtp} className="text-primary font-medium hover:underline">
+              Resend
+            </button>
+          </p>
+          <div className="text-center mt-4">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setOtp(null);
+                setOtpCode("");
+                setOtpError("");
+              }}
+            >
+              Back to sign in
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4 py-10">
@@ -154,6 +256,11 @@ export default function Login() {
                 </button>
               ))}
             </div>
+            {loginAs === "client" && (
+              <p className="text-xs text-muted-foreground">
+                For extra security, clients receive a one-time code by email at sign-in.
+              </p>
+            )}
           </div>
           <Button type="submit" className="w-full h-11 font-medium" disabled={loading}>
             {loading ? (
