@@ -11,46 +11,46 @@ const PLANS = {
     {
       name: "Starter",
       monthly: 100, yearly: 1000, currency: "INR",
-      features: ["1 user", "25 cases", "Invoicing", "Documents", "Client CRM"],
+      features: ["1 user", "25 cases", "Invoicing", "Documents", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"],
       highlight: true,
     },
     {
       name: "Professional",
       monthly: 350, yearly: 3500, currency: "INR",
       includes: "Starter",
-      features: ["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking"],
+      features: ["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"],
     },
     {
       name: "Enterprise",
       custom: true, currency: "INR",
       includes: "Professional",
-      features: ["Multi-lawyer firm", "SSO + audit logs", "Priority support", "Dedicated onboarding"],
+      features: ["Multi-lawyer firm", "SSO + audit logs", "24×5 priority support", "Dedicated onboarding", "Online payments & QuickBooks ready"],
     },
   ],
   USD: [
     {
       name: "Starter",
       monthly: 25, yearly: 250, currency: "USD",
-      features: ["1 user", "25 cases", "Invoicing", "Documents", "Client CRM"],
+      features: ["1 user", "25 cases", "Invoicing", "Documents", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"],
       highlight: true,
     },
     {
       name: "Professional",
       monthly: 99, yearly: 990, currency: "USD",
       includes: "Starter",
-      features: ["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking"],
+      features: ["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"],
     },
     {
       name: "Team",
       monthly: 150, yearly: 1500, currency: "USD",
       includes: "Professional",
-      features: ["10 users", "200 cases"],
+      features: ["10 users", "200 cases", "Online payments & QuickBooks ready", "24×5 support"],
     },
     {
       name: "Enterprise",
       custom: true, currency: "USD",
       includes: "Team",
-      features: ["Multi-lawyer firm", "SSO + audit logs", "Priority support", "Dedicated onboarding"],
+      features: ["Multi-lawyer firm", "SSO + audit logs", "24×5 priority support", "Dedicated onboarding", "Online payments & QuickBooks ready"],
     },
   ],
 };
@@ -63,7 +63,7 @@ const FAQ = {
     ["Can I upgrade later?", "Yes — start on Starter and move to Professional or Enterprise as your firm grows."],
   ],
   USD: [
-    ["Is there a free plan?", "No. Plans start at $19/month, giving every firm a production-ready workspace."],
+    ["Is there a free plan?", "No. Plans start at $25/month, giving every firm a production-ready workspace."],
     ["Do you bill in USD?", "Yes — all plans and invoices are billed in US Dollars ($)."],
     ["Is my data secure?", "All records are protected by row-level security with admin-only writes."],
     ["Can I upgrade later?", "Yes — start on Starter and move to Professional or Enterprise as you grow."],
