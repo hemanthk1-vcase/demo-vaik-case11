@@ -9,6 +9,8 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
 import { toast } from "@/components/ui/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
+import TermsDialog from "@/components/TermsDialog";
 import { safeReturnTo } from "@/lib/authReturnTo";
 
 export default function Register() {
@@ -19,12 +21,17 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showOtp, setShowOtp] = useState(false);
   const [otpCode, setOtpCode] = useState("");
+  const [consent, setConsent] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      return;
+    }
+    if (!consent) {
+      setError("Please review and accept the Terms of Use & Consents before creating your account.");
       return;
     }
     setLoading(true);
@@ -216,7 +223,19 @@ export default function Register() {
             />
           </div>
         </div>
-        <Button type="submit" className="w-full h-12 font-medium" disabled={loading}>
+        <div className="flex items-start gap-2 pt-1">
+          <Checkbox
+            id="consent"
+            checked={consent}
+            onCheckedChange={(v) => setConsent(v === true)}
+            className="mt-1"
+          />
+          <label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
+            I confirm I have read and accept the <TermsDialog />, the Privacy Policy, and my consent to
+            electronic communications, records and e-signatures as set out therein.
+          </label>
+        </div>
+        <Button type="submit" className="w-full h-12 font-medium" disabled={loading || !consent}>
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
