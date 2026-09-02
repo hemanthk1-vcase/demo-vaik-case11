@@ -1,7 +1,8 @@
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import PageNotFound from './lib/PageNotFound';
 import Vakilcase from './pages/Vakilcase';
 import Login from './pages/Login';
@@ -28,6 +29,7 @@ import ForLawyers from './pages/marketing/ForLawyers';
 import ForClients from './pages/marketing/ForClients';
 import Pricing from './pages/marketing/Pricing';
 import About from './pages/marketing/About';
+import ClientPortal from './pages/ClientPortal';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -69,6 +71,10 @@ const AuthenticatedApp = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      {/* Client portal (client-facing) */}
+      <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+        <Route path="/client-portal" element={<ClientPortal />} />
+      </Route>
       {/* App pages (with sidebar) */}
       <Route element={<DashboardLayout />}>
         <Route path="/" element={<Dashboard />} />

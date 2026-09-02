@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Users, FileSignature, ShieldCheck, Clock, Mail, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import PortalPreview from "@/components/marketing/PortalPreview";
 
 const BENEFITS = [
   { icon: Users, title: "Find the right lawyer", desc: "Browse verified lawyer profiles with specializations, bar credentials, and ratings." },
@@ -49,7 +50,47 @@ export default function ForClients() {
         </div>
       </section>
 
+      {/* Client Portal */}
       <section className="py-16 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 text-indigo-600 font-semibold text-sm">
+              <FileSignature className="w-5 h-5" /> Client Portal
+            </div>
+            <h2 className="mt-3 text-3xl font-bold text-slate-900">
+              One secure login for every firm you work with
+            </h2>
+            <p className="mt-4 text-slate-600 leading-relaxed">
+              Your lawyer sends you a secure invite — or you connect with your firm's unique code —
+              and all your matters appear in your portal instantly. Working with more than one firm?
+              Switch between them with a single click; each firm only ever sees its own files.
+            </p>
+            <ul className="mt-5 space-y-2 text-sm text-slate-600">
+              {[
+                "Live case status and upcoming hearing dates",
+                "Documents shared by your firm, with e-signature on request",
+                "Invoices with partial-payment status and online payment",
+                "Bank-grade security — your data is never shared without consent",
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" /> {t}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button asChild>
+                <Link to="/client-portal">Preview the portal</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link to="/register">Create your account</Link>
+              </Button>
+            </div>
+          </div>
+          <PortalPreview />
+        </div>
+      </section>
+
+      <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-slate-900">A better way to work with your lawyer</h2>
           <p className="mt-3 text-slate-600">Verified professionals, secure documents, and total transparency — from first meeting to resolved matter.</p>
