@@ -231,8 +231,15 @@ export default function Register() {
             className="mt-1"
           />
           <label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
-            I confirm I have read and accept the <TermsDialog />, the Privacy Policy, and my consent to
-            electronic communications, records and e-signatures as set out therein.
+            I confirm I have read and accept the <TermsDialog /> and the{" "}
+            <a href="/privacy" target="_blank" rel="noreferrer" className="text-primary font-medium hover:underline underline-offset-4">
+              Privacy Policy
+            </a>
+            , and my{" "}
+            <a href="/terms" target="_blank" rel="noreferrer" className="text-primary font-medium hover:underline underline-offset-4">
+              consent to electronic communications, records and e-signatures
+            </a>{" "}
+            as set out therein.
           </label>
         </div>
         <Button type="submit" className="w-full h-12 font-medium" disabled={loading || !consent}>

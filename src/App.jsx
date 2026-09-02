@@ -31,6 +31,7 @@ import Pricing from './pages/marketing/Pricing';
 import About from './pages/marketing/About';
 import ClientPortal from './pages/ClientPortal';
 import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -67,6 +68,7 @@ const AuthenticatedApp = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
       </Route>
       {/* Auth routes */}
       <Route path="/login" element={<Login />} />
