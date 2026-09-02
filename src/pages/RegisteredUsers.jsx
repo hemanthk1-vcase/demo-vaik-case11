@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Loader2, Copy, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 const TYPE_LABEL = {
   lawyer: "Lawyer / Firm",
@@ -13,6 +15,24 @@ export default function RegisteredUsers() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState("");
+  const [busyId, setBusyId] = useState(null);
+
+  const toggleAccess = async (u) => {
+    const grant = u.role !== "admin";
+    setBusyId(u.id);
+    try {
+      await base44.entities.User.update(u.id, { role: grant ? "admin" : "user" });
+      setUsers((prev) => prev.map((x) => (x.id === u.id ? { ...x, role: grant ? "admin" : "user" } : x)));
+      toast({
+        title: grant ? "Workspace access granted" : "Workspace access revoked",
+        description: `${u.full_name || u.email} ${grant ? "can now sign in to the firm workspace." : "will now be routed to the client portal."}`,
+      });
+    } catch {
+      toast({ title: "Could not update access", description: "Please try again.", variant: "destructive" });
+    } finally {
+      setBusyId(null);
+    }
+  };
 
   useEffect(() => {
     base44.entities.User.list()
@@ -59,6 +79,7 @@ export default function RegisteredUsers() {
                   <th className="text-left font-medium px-4 py-3">Phone</th>
                   <th className="text-left font-medium px-4 py-3">Firm code</th>
                   <th className="text-left font-medium px-4 py-3">Connected firm</th>
+                  <th className="text-left font-medium px-4 py-3">Workspace</th>
                 </tr>
               </thead>
               <tbody>
@@ -95,6 +116,26 @@ export default function RegisteredUsers() {
                       )}
                     </td>
                     <td className="px-4 py-3 font-mono">{u.connected_firm_code || "—"}</td>
+                    <td className="px-4 py-3">
+                      {u.account_type === "lawyer" || u.account_type === "both" ? (
+                        <Button
+                          size="sm"
+                          variant={u.role === "admin" ? "outline" : "default"}
+                          disabled={busyId === u.id}
+                          onClick={() => toggleAccess(u)}
+                        >
+                          {busyId === u.id ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : u.role === "admin" ? (
+                            "Revoke"
+                          ) : (
+                            "Grant"
+                          )}
+                        </Button>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

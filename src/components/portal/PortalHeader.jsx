@@ -24,7 +24,7 @@ export default function PortalHeader({ me }) {
           )}
           <div className="text-right">
             <div className="text-sm font-semibold text-slate-900">{me?.full_name || me?.email}</div>
-            <div className="text-xs text-slate-500">Client Portal</div>
+            <div className="text-xs text-slate-500">{me?.firm_code ? "Firm & Client Portal" : "Client Portal"}</div>
           </div>
         </div>
       </div>

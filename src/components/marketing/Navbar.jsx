@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandLogo from "@/components/BrandLogo";
+import { base44 } from "@/api/base44Client";
 
 const LINKS = [
   { to: "/welcome", label: "Home" },
@@ -15,7 +16,12 @@ const LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [authed, setAuthed] = useState(false);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    base44.auth.isAuthenticated().then(setAuthed).catch(() => setAuthed(false));
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
@@ -40,12 +46,25 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/login">Sign in</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <Link to="/register">Get started</Link>
-          </Button>
+          {authed ? (
+            <>
+              <Button variant="ghost" size="sm" onClick={() => base44.auth.logout("/welcome")}>
+                <LogOut className="w-4 h-4 mr-1" /> Sign out
+              </Button>
+              <Button size="sm" asChild>
+                <Link to="/">Open app</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/login">Sign in</Link>
+              </Button>
+              <Button size="sm" asChild>
+                <Link to="/register">Get started</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <button className="md:hidden p-2" onClick={() => setOpen((o) => !o)} aria-label="Menu">
@@ -66,12 +85,25 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="flex gap-2 pt-2">
-            <Button variant="outline" size="sm" asChild className="flex-1">
-              <Link to="/login">Sign in</Link>
-            </Button>
-            <Button size="sm" asChild className="flex-1">
-              <Link to="/register">Get started</Link>
-            </Button>
+            {authed ? (
+              <>
+                <Button variant="outline" size="sm" className="flex-1" onClick={() => base44.auth.logout("/welcome")}>
+                  <LogOut className="w-4 h-4 mr-1" /> Sign out
+                </Button>
+                <Button size="sm" asChild className="flex-1">
+                  <Link to="/">Open app</Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" size="sm" asChild className="flex-1">
+                  <Link to="/login">Sign in</Link>
+                </Button>
+                <Button size="sm" asChild className="flex-1">
+                  <Link to="/register">Get started</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       )}
