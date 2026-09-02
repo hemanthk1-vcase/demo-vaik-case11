@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
@@ -17,13 +17,6 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const returnTo = safeReturnTo();
   const justRegistered = new URLSearchParams(window.location.search).get("registered") === "1";
-
-  // Already signed-in users shouldn't stare at the login form.
-  useEffect(() => {
-    base44.auth.isAuthenticated().then((authed) => {
-      if (authed && returnTo === "/") window.location.replace("/");
-    });
-  }, [returnTo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
