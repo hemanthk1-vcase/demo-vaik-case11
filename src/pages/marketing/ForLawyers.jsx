@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const BENEFITS = [
   { icon: Briefcase, title: "Win more matters", desc: "Track every case from intake to judgment with clear status, priority, and hearing dates." },
-  { icon: Receipt, title: "Get paid faster", desc: "Automated INR invoicing with partial-payment tracking and overdue alerts." },
+  { icon: Receipt, title: "Get paid faster", desc: "Automated invoicing in your local currency with partial-payment tracking and overdue alerts." },
   { icon: Clock, title: "Capture every billable hour", desc: "Log time per case with rates and billing flags — no more lost time." },
   { icon: GraduationCap, title: "Credential your team", desc: "Bar registration numbers, specializations, ratings, and verification on every profile." },
   { icon: Landmark, title: "Trust accounting built in", desc: "Separate trust and operating ledgers with full transaction history." },
@@ -23,11 +23,11 @@ export default function ForLawyers() {
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-slate-900">Spend less time on admin, more time in court</h1>
           <p className="mt-4 text-lg text-slate-600">
             Vakil Case replaces the patchwork of tools lawyers juggle daily with one secure platform —
-            built for the way Indian law firms actually work.
+            built for the way modern law firms actually work.
           </p>
           <div className="mt-8">
             <Button size="lg" asChild>
-              <Link to="/register">Start free <ArrowRight className="w-4 h-4 ml-1" /></Link>
+              <Link to="/register">Get started <ArrowRight className="w-4 h-4 ml-1" /></Link>
             </Button>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default function ForLawyers() {
       <section className="py-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-slate-900">From solo advocates to multi-lawyer firms</h2>
-          <p className="mt-3 text-slate-600">Vakil Case scales with your practice — start free, upgrade as you grow.</p>
+          <p className="mt-3 text-slate-600">Vakil Case scales with your practice — get started, upgrade as you grow.</p>
           <div className="mt-8">
             <Button size="lg" asChild>
               <Link to="/pricing">See plans <ArrowRight className="w-4 h-4 ml-1" /></Link>

@@ -6,7 +6,7 @@ import BrandLogo from "@/components/BrandLogo";
 
 const VALUES = [
   { icon: ShieldCheck, title: "Security first", desc: "Client confidentiality is non-negotiable — we protect it at every layer." },
-  { icon: Target, title: "Built for practitioners", desc: "Every feature is shaped by how Indian lawyers and firms actually work." },
+  { icon: Target, title: "Built for practitioners", desc: "Every feature is shaped by how lawyers and firms actually work." },
   { icon: Heart, title: "Customer-obsessed", desc: "We succeed when your firm runs smoother and your clients are better served." },
 ];
 
@@ -18,7 +18,7 @@ export default function About() {
           <BrandLogo className="h-24 w-24 mx-auto" />
           <h1 className="mt-6 text-4xl md:text-5xl font-bold text-slate-900">About Vakil Case</h1>
           <p className="mt-4 text-lg text-slate-600">
-            Vakil Case is the all-in-one practice management platform built for modern Indian law firms —
+            Vakil Case is the all-in-one practice management platform built for modern law firms —
             unifying cases, clients, billing, documents, and trust accounting in one secure workspace.
           </p>
         </div>
@@ -37,7 +37,7 @@ export default function About() {
           </p>
           <p className="mt-4 text-slate-600 leading-relaxed">
             From solo advocates to multi-lawyer firms, Vakil Case scales with your practice — purpose-built
-            for the Indian legal ecosystem with INR-native billing, state-bar credentialing, and
+            for legal practice with local-currency billing, bar credentialing, and
             jurisdiction-aware templates.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function About() {
           <h2 className="text-3xl font-bold text-slate-900">Join the firms modernising with Vakil Case</h2>
           <div className="mt-6">
             <Button size="lg" asChild>
-              <Link to="/register">Start free <ArrowRight className="w-4 h-4 ml-1" /></Link>
+              <Link to="/register">Get started <ArrowRight className="w-4 h-4 ml-1" /></Link>
             </Button>
           </div>
         </div>

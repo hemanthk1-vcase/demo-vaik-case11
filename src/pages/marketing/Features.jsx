@@ -16,7 +16,7 @@ const GROUPS = [
   {
     title: "Run your finances",
     items: [
-      { icon: Receipt, name: "Invoices & Billing", desc: "Create, send, and track invoices in INR with partial payments and overdue alerts." },
+      { icon: Receipt, name: "Invoices & Billing", desc: "Create, send, and track invoices in your local currency with partial payments and overdue alerts." },
       { icon: Landmark, name: "Trust Accounting", desc: "Separate trust and operating accounts with full deposit/withdrawal ledgers and running balances." },
       { icon: Clock, name: "Time Tracking", desc: "Log billable hours per case with rates and billing flags — never lose trackable time." },
     ],

@@ -18,7 +18,7 @@ export default function Footer() {
             <span className="text-lg">Vakil Case</span>
           </Link>
           <p className="mt-3 text-sm text-slate-500 max-w-xs">
-            The all-in-one practice management platform for modern Indian law firms.
+            The all-in-one practice management platform for modern law firms.
           </p>
         </div>
         {COLS.map((c) => (

@@ -31,10 +31,10 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto px-4 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-flex items-center gap-2 text-indigo-600 font-semibold text-sm">
-              <Scale className="w-5 h-5" /> Built for Indian law firms
+              <Scale className="w-5 h-5" /> Built for modern law firms
             </div>
             <h1 className="mt-4 text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
-              The all-in-one platform for modern Indian law firms
+              The all-in-one platform for modern law firms
             </h1>
             <p className="mt-5 text-lg text-slate-600 max-w-lg">
               Cases, clients, billing, documents, and trust accounting — unified in one secure,
@@ -50,7 +50,7 @@ export default function Landing() {
             </div>
             <div className="mt-6 flex items-center gap-2 text-sm text-slate-500">
               <div className="flex">{[0,1,2,3,4].map((i) => <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />)}</div>
-              Trusted by modern legal practices across India
+              Trusted by modern legal practices worldwide
             </div>
           </div>
           <div className="flex justify-center">
