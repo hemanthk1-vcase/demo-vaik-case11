@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import {
   LayoutDashboard, Users, Briefcase, FileText, Files, MessageSquare,
@@ -27,7 +27,12 @@ const NAV = [
   { to: "/email-log", label: "Email Log", icon: Mail },
 ];
 
-const SITE_LINKS = ["Features", "Pricing", "About", "Visit site"];
+const SITE_LINKS = [
+  { to: "/features", label: "Features" },
+  { to: "/pricing", label: "Pricing" },
+  { to: "/about", label: "About" },
+  { to: "/welcome", label: "Visit site" },
+];
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -80,8 +85,8 @@ export default function Sidebar() {
         <div>
           <p className="text-[11px] font-semibold text-muted-foreground/70 uppercase tracking-wider mb-2">Website</p>
           <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
-            {SITE_LINKS.map((l) => (
-              <span key={l} className="hover:text-foreground cursor-pointer">{l}</span>
+            {SITE_LINKS.map(({ to, label }) => (
+              <Link key={label} to={to} className="hover:text-foreground">{label}</Link>
             ))}
           </div>
         </div>

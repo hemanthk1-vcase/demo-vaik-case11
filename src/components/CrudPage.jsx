@@ -144,6 +144,23 @@ export default function CrudPage({ entity, title, singular, description, columns
                       <option value="">—</option>
                       {f.options.map((o) => <option key={o} value={o}>{f.labels ? f.labels[o] : o}</option>)}
                     </select>
+                  ) : f.type === "country" ? (
+                    <div className="flex flex-wrap gap-2">
+                      {f.countries.map(([label, value]) => (
+                        <button
+                          type="button"
+                          key={value}
+                          onClick={() => set(f.key, value)}
+                          className={`px-3 py-2 rounded-md border text-sm font-medium transition ${
+                            form[f.key] === value
+                              ? "border-primary bg-primary text-primary-foreground"
+                              : "border-input bg-background hover:bg-muted/60"
+                          }`}
+                        >
+                          {label} <span className="ml-1 opacity-70">{value}</span>
+                        </button>
+                      ))}
+                    </div>
                   ) : f.type === "textarea" ? (
                     <Textarea id={f.key} value={form[f.key] ?? ""} onChange={(e) => set(f.key, e.target.value)} rows={3} />
                   ) : (
