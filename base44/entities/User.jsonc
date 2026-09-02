@@ -44,7 +44,8 @@
       "type": "string",
       "enum": [
         "lawyer",
-        "client"
+        "client",
+        "both"
       ],
       "default": "client"
     },

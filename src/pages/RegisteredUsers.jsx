@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 const TYPE_LABEL = {
   lawyer: "Lawyer / Firm",
   client: "Client",
+  both: "Lawyer & Client",
 };
 
 export default function RegisteredUsers() {
@@ -26,8 +27,8 @@ export default function RegisteredUsers() {
     setTimeout(() => setCopied(""), 2000);
   };
 
-  const lawyers = users.filter((u) => u.account_type === "lawyer");
-  const clients = users.filter((u) => u.account_type === "client");
+  const lawyers = users.filter((u) => u.account_type === "lawyer" || u.account_type === "both");
+  const clients = users.filter((u) => u.account_type === "client" || u.account_type === "both");
 
   return (
     <div className="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
@@ -66,7 +67,7 @@ export default function RegisteredUsers() {
                     <td className="px-4 py-3">{u.full_name || "—"}</td>
                     <td className="px-4 py-3">{u.email}</td>
                     <td className="px-4 py-3">
-                      <Badge variant={u.account_type === "lawyer" ? "default" : "outline"}>
+                      <Badge variant={u.account_type === "lawyer" || u.account_type === "both" ? "default" : "outline"}>
                         {TYPE_LABEL[u.account_type] || (u.role || "user")}
                       </Badge>
                     </td>

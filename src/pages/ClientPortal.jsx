@@ -140,6 +140,14 @@ export default function ClientPortal() {
             <Link to="/welcome" className="text-sm text-slate-500 hover:text-slate-900 hidden sm:block">
               <ArrowLeft className="w-4 h-4 inline mr-1" /> Website
             </Link>
+            {me?.firm_code && (
+              <span
+                className="hidden sm:inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-mono font-semibold text-slate-700"
+                title="Your firm code — share it with your clients"
+              >
+                Firm code: {me.firm_code}
+              </span>
+            )}
             <div className="text-right">
               <div className="text-sm font-semibold text-slate-900">{me?.full_name || me?.email}</div>
               <div className="text-xs text-slate-500">Client Portal</div>

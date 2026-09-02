@@ -11,11 +11,11 @@ const genCode = () => "VC-" + Math.random().toString(36).slice(2, 8).toUpperCase
 
 /**
  * Shown in the Client Portal when the signed-in user has no client record yet.
- * Lawyers see their unique firm code (with copy / generate); clients can
- * connect to a firm by entering the code their lawyer shared with them.
+ * Lawyers/firms see their unique firm code; every user — including lawyers who
+ * are also clients of another firm — can connect with a firm code.
  */
 export default function FirmConnectPanel({ me }) {
-  const isLawyer = me?.account_type === "lawyer";
+  const isFirmSide = me?.account_type === "lawyer" || me?.account_type === "both";
   const [code, setCode] = useState(me?.firm_code || "");
   const [copied, setCopied] = useState(false);
   const [input, setInput] = useState("");
@@ -66,7 +66,7 @@ export default function FirmConnectPanel({ me }) {
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
       <div className="max-w-lg w-full rounded-2xl border border-slate-200 bg-white p-8 text-center">
         <BrandLogo className="h-16 w-16 mx-auto" />
-        {isLawyer ? (
+        {isFirmSide ? (
           <>
             <h1 className="mt-4 text-2xl font-bold text-slate-900">Your firm is ready</h1>
             <p className="mt-3 text-slate-600">
@@ -96,26 +96,35 @@ export default function FirmConnectPanel({ me }) {
               Your lawyer can send you a secure invite by email — or connect instantly with your
               firm's unique code.
             </p>
-            <div className="mt-5 text-left space-y-2">
-              <Label htmlFor="firm-code">Firm code</Label>
-              <div className="flex gap-2">
-                <Input
-                  id="firm-code"
-                  placeholder="e.g. VC-A1B2C3"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  className="h-11 uppercase"
-                />
-                <Button className="h-11" onClick={connect} disabled={busy}>
-                  {busy ? "Sending..." : "Connect"}
-                </Button>
-              </div>
-              {msg && (
-                <p className={`text-sm ${msg.ok ? "text-emerald-600" : "text-destructive"}`}>{msg.text}</p>
-              )}
-            </div>
           </>
         )}
+
+        <div className={`text-left space-y-2 ${isFirmSide ? "mt-6 border-t border-slate-100 pt-6" : "mt-5"}`}>
+          <Label htmlFor="firm-code">
+            {isFirmSide ? "Also a client of another firm? Connect with their code" : "Firm code"}
+          </Label>
+          <div className="flex gap-2">
+            <Input
+              id="firm-code"
+              placeholder="e.g. VC-A1B2C3"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="h-11 uppercase"
+            />
+            <Button className="h-11" onClick={connect} disabled={busy}>
+              {busy ? "Sending..." : "Connect"}
+            </Button>
+          </div>
+          {me?.connected_firm_code && !msg && (
+            <p className="text-sm text-amber-600">
+              Requested {me.connected_firm_code} — waiting for the firm to confirm your access.
+            </p>
+          )}
+          {msg && (
+            <p className={`text-sm ${msg.ok ? "text-emerald-600" : "text-destructive"}`}>{msg.text}</p>
+          )}
+        </div>
+
         <div className="mt-6 flex justify-center">
           <Button variant="outline" asChild>
             <Link to="/welcome"><ArrowLeft className="w-4 h-4 mr-1" /> Back to website</Link>

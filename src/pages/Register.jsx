@@ -22,7 +22,8 @@ export default function Register() {
   const [showOtp, setShowOtp] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [consent, setConsent] = useState(false);
-  const [accountType, setAccountType] = useState("client");
+  const [asLawyer, setAsLawyer] = useState(false);
+  const [asClient, setAsClient] = useState(true);
   const [countryCode, setCountryCode] = useState("+91");
   const [phone, setPhone] = useState("");
 
@@ -35,6 +36,10 @@ export default function Register() {
     }
     if (phone.replace(/\D/g, "").length < 7) {
       setError("A valid phone number is required — your firm uses it to reach you.");
+      return;
+    }
+    if (!asLawyer && !asClient) {
+      setError("Select at least one role — you can be a lawyer, a client, or both.");
       return;
     }
     if (!consent) {
@@ -65,11 +70,11 @@ export default function Register() {
         base44.auth.setToken(result.access_token);
         try {
           const profile = {
-            account_type: accountType,
+            account_type: asLawyer && asClient ? "both" : asLawyer ? "lawyer" : "client",
             phone,
             phone_country_code: countryCode,
           };
-          if (accountType === "lawyer") {
+          if (asLawyer) {
             profile.firm_code = "VC-" + Math.random().toString(36).slice(2, 8).toUpperCase();
           }
           await base44.auth.updateMe(profile);
@@ -248,15 +253,18 @@ export default function Register() {
           </div>
         </div>
         <div className="space-y-2">
-          <Label>Account type</Label>
+          <Label>I am registering as…</Label>
           <div className="grid grid-cols-2 gap-2">
-            {[["client", "I'm a client"], ["lawyer", "I'm a lawyer"]].map(([v, l]) => (
+            {[
+              ["lawyer", "A lawyer / firm", asLawyer, () => setAsLawyer((v) => !v)],
+              ["client", "A client", asClient, () => setAsClient((v) => !v)],
+            ].map(([v, l, active, toggle]) => (
               <button
                 type="button"
                 key={v}
-                onClick={() => setAccountType(v)}
+                onClick={toggle}
                 className={`h-11 rounded-md border text-sm font-medium transition ${
-                  accountType === v
+                  active
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-input bg-background hover:bg-muted/60"
                 }`}
@@ -265,6 +273,9 @@ export default function Register() {
               </button>
             ))}
           </div>
+          <p className="text-xs text-muted-foreground">
+            You can select both — a lawyer can also be a client of another firm with the same account.
+          </p>
         </div>
         <div className="space-y-2">
           <Label htmlFor="phone">
