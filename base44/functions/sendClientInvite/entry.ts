@@ -16,23 +16,41 @@ export default async function(req) {
     if (!EMAIL_RE.test(clientEmail)) {
       return Response.json({ error: 'A valid client email is required' }, { status: 400 });
     }
+    const senderName = String(admin.full_name || 'Your attorney').trim();
+    const firmName = String(admin.firm_name || '').trim();
     const firmCode = admin.firm_code ? String(admin.firm_code) : '';
+    const requester = firmName ? `Adv. ${senderName} of ${firmName}` : `Adv. ${senderName}`;
+    const firmDisplayName = firmName || senderName;
+
     const lines = [
-      `Hi ${clientName || 'there'},`,
+      `Dear ${clientName || 'Client'},`,
       '',
-      'Your law firm has set up a secure client portal for you on Vakil Case. Sign in to view your matters, hearing dates, invoices, and shared documents.',
+      `${requester} has requested that you be granted access to your matters through the Vakil Case Client Portal.`,
       '',
-      `Sign in: ${APP_URL}/login`,
-      `New here? Create your account: ${APP_URL}/register`,
+      'Through the portal, you will be able to:',
       '',
-      'When you sign in, choose "A client".',
-      ...(firmCode ? ['', `To connect to the firm, use this firm code: ${firmCode}`] : []),
+      '- View live case status and upcoming hearing dates',
+      '- Access documents shared by the firm and add your e-signature where requested',
+      '- Review invoices and make secure online payments',
       '',
-      '— Vakil Case',
+      'To get started, please accept the invitation below and create your password. This link is valid for 7 days.',
+      '',
+      'Accept Invitation & Create Your Password:',
+      `${APP_URL}/register`,
+      '',
+      'Already have a Vakil Case account with another firm? Simply log in — this firm will appear automatically in your account.',
+      '',
+      'If you did not expect this invitation, please disregard this email.',
+      '',
+      ...(firmCode ? [`Firm reference code: ${firmCode}`, ''] : []),
+      'Visit us at www.vakilcase.com',
+      '',
+      'Warm regards,',
+      firmDisplayName,
     ];
     await base44.asServiceRole.integrations.Core.SendEmail({
       to: clientEmail,
-      subject: 'Your invitation to the Vakil Case client portal',
+      subject: `Invitation to Access Your Matters — ${firmDisplayName} via Vakil Case`,
       body: lines.join('\n'),
     });
     return Response.json({ status: 'ok', sent: true });
