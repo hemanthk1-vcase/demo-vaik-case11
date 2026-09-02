@@ -33,6 +33,8 @@ import ClientPortal from './pages/ClientPortal';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import RegisteredUsers from './pages/RegisteredUsers';
+import IntakeForms from './pages/IntakeForms';
+import PublicIntakeForm from './pages/PublicIntakeForm';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -76,6 +78,8 @@ const AuthenticatedApp = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      {/* Public intake forms (no login required) */}
+      <Route path="/intake/:formId" element={<PublicIntakeForm />} />
       {/* Client portal (client-facing) */}
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/client-portal" element={<ClientPortal />} />
@@ -90,7 +94,7 @@ const AuthenticatedApp = () => {
         <Route path="/documents" element={<SectionPlaceholder />} />
         <Route path="/document-templates" element={<SectionPlaceholder />} />
         <Route path="/messages" element={<SectionPlaceholder />} />
-        <Route path="/intake-forms" element={<SectionPlaceholder />} />
+        <Route path="/intake-forms" element={<IntakeForms />} />
         <Route path="/invoices" element={<Fees />} />
         <Route path="/trust-accounting" element={<SectionPlaceholder />} />
         <Route path="/time-tracking" element={<SectionPlaceholder />} />
