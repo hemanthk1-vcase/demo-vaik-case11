@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Copy, Check, Loader2 } from "lucide-react";
+import { ArrowLeft, Copy, Check, Loader2, RefreshCw } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,8 +13,9 @@ const genCode = () => "VC-" + Math.random().toString(36).slice(2, 8).toUpperCase
  * Shown in the Client Portal when the signed-in user has no client record yet.
  * Lawyers/firms see their unique firm code; every user — including lawyers who
  * are also clients of another firm — can connect with a firm code.
+ * `embedded` renders it inside the portal shell instead of as a full page.
  */
-export default function FirmConnectPanel({ me }) {
+export default function FirmConnectPanel({ me, embedded = false }) {
   const isFirmSide = me?.account_type === "lawyer" || me?.account_type === "both";
   const [code, setCode] = useState(me?.firm_code || "");
   const [copied, setCopied] = useState(false);
@@ -63,12 +64,12 @@ export default function FirmConnectPanel({ me }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-      <div className="max-w-lg w-full rounded-2xl border border-slate-200 bg-white p-8 text-center">
-        <BrandLogo className="h-16 w-16 mx-auto" />
+    <div className={embedded ? "w-full" : "min-h-screen bg-slate-50 flex items-center justify-center px-4"}>
+      <div className={`rounded-2xl border border-slate-200 bg-white p-8 text-center ${embedded ? "w-full" : "max-w-lg w-full"}`}>
+        {embedded ? null : <BrandLogo className="h-16 w-16 mx-auto" />}
         {isFirmSide ? (
           <>
-            <h1 className="mt-4 text-2xl font-bold text-slate-900">Your firm is ready</h1>
+            <h1 className={`text-2xl font-bold text-slate-900 ${embedded ? "" : "mt-4"}`}>Your firm is ready</h1>
             <p className="mt-3 text-slate-600">
               Share this unique firm code with your clients so they can connect to you instantly.
             </p>
@@ -91,7 +92,7 @@ export default function FirmConnectPanel({ me }) {
           </>
         ) : (
           <>
-            <h1 className="mt-4 text-2xl font-bold text-slate-900">No firm connected yet</h1>
+            <h1 className={`text-2xl font-bold text-slate-900 ${embedded ? "" : "mt-4"}`}>No firm connected yet</h1>
             <p className="mt-3 text-slate-600">
               Your lawyer can send you a secure invite by email — or connect instantly with your
               firm's unique code.
@@ -116,8 +117,15 @@ export default function FirmConnectPanel({ me }) {
             </Button>
           </div>
           {me?.connected_firm_code && !msg && (
-            <p className="text-sm text-amber-600">
+            <p className="text-sm text-amber-600 flex items-center gap-2">
               Requested {me.connected_firm_code} — waiting for the firm to confirm your access.
+              <button
+                onClick={() => window.location.reload()}
+                className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-900"
+                title="Refresh after your firm confirms"
+              >
+                <RefreshCw className="w-3.5 h-3.5" /> Refresh
+              </button>
             </p>
           )}
           {msg && (
@@ -125,11 +133,13 @@ export default function FirmConnectPanel({ me }) {
           )}
         </div>
 
-        <div className="mt-6 flex justify-center">
-          <Button variant="outline" asChild>
-            <Link to="/welcome"><ArrowLeft className="w-4 h-4 mr-1" /> Back to website</Link>
-          </Button>
-        </div>
+        {!embedded && (
+          <div className="mt-6 flex justify-center">
+            <Button variant="outline" asChild>
+              <Link to="/welcome"><ArrowLeft className="w-4 h-4 mr-1" /> Back to website</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

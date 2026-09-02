@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import BrandLogo from "@/components/BrandLogo";
 import FirmConnectPanel from "@/components/portal/FirmConnectPanel";
+import PortalHeader from "@/components/portal/PortalHeader";
 import { Button } from "@/components/ui/button";
 import {
   Briefcase, Receipt, FileText, CalendarClock, Building2, ArrowLeft,
@@ -119,7 +120,16 @@ export default function ClientPortal() {
     );
   }
 
-  if (!activeClient) return <FirmConnectPanel me={me} />;
+  if (!activeClient) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <PortalHeader me={me} />
+        <main className="max-w-5xl mx-auto px-4 py-8">
+          <FirmConnectPanel me={me} embedded />
+        </main>
+      </div>
+    );
+  }
 
   const activeCaseCount = cases.filter((c) => !String(c.status).startsWith("closed")).length;
   const outstanding = fees.reduce((s, f) => s + ((f.amount || 0) - (f.amount_paid || 0)), 0);
@@ -130,31 +140,7 @@ export default function ClientPortal() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/welcome" className="flex items-center gap-2 font-bold text-slate-900">
-            <BrandLogo className="h-9 w-9" /> <span>Vakil Case</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <Link to="/welcome" className="text-sm text-slate-500 hover:text-slate-900 hidden sm:block">
-              <ArrowLeft className="w-4 h-4 inline mr-1" /> Website
-            </Link>
-            {me?.firm_code && (
-              <span
-                className="hidden sm:inline-flex items-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-mono font-semibold text-slate-700"
-                title="Your firm code — share it with your clients"
-              >
-                Firm code: {me.firm_code}
-              </span>
-            )}
-            <div className="text-right">
-              <div className="text-sm font-semibold text-slate-900">{me?.full_name || me?.email}</div>
-              <div className="text-xs text-slate-500">Client Portal</div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PortalHeader me={me} />
 
       <main className="max-w-5xl mx-auto px-4 py-8">
         {/* Firm switcher */}
