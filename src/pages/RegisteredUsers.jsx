@@ -34,6 +34,50 @@ export default function RegisteredUsers() {
     }
   };
 
+  const approveClient = async (u) => {
+    setBusyId(u.id);
+    try {
+      await base44.entities.User.update(u.id, { connection_status: "connected" });
+      // Link this user to the matching client record(s) so their matters
+      // appear in the portal.
+      const all = await base44.entities.Client.list();
+      const matches = all.filter(
+        (c) => c.email && u.email && c.email.toLowerCase() === u.email.toLowerCase()
+      );
+      if (matches.length) {
+        await base44.entities.Client.bulkUpdate(
+          matches.map((c) => ({ id: c.id, client_user_id: u.id }))
+        );
+      }
+      setUsers((prev) =>
+        prev.map((x) => (x.id === u.id ? { ...x, connection_status: "connected" } : x))
+      );
+      toast({
+        title: "Client access approved",
+        description: `${u.full_name || u.email} can now see their matters in the client portal.`,
+      });
+    } catch {
+      toast({ title: "Could not approve", description: "Please try again.", variant: "destructive" });
+    } finally {
+      setBusyId(null);
+    }
+  };
+
+  const rejectClient = async (u) => {
+    setBusyId(u.id);
+    try {
+      await base44.entities.User.update(u.id, { connection_status: "", connected_firm_code: "" });
+      setUsers((prev) =>
+        prev.map((x) => (x.id === u.id ? { ...x, connection_status: "", connected_firm_code: "" } : x))
+      );
+      toast({ title: "Connection request declined" });
+    } catch {
+      toast({ title: "Could not decline", description: "Please try again.", variant: "destructive" });
+    } finally {
+      setBusyId(null);
+    }
+  };
+
   useEffect(() => {
     base44.entities.User.list()
       .then(setUsers)
@@ -52,6 +96,9 @@ export default function RegisteredUsers() {
   const pending = users.filter(
     (u) => (u.account_type === "lawyer" || u.account_type === "both") && u.role !== "admin"
   );
+  const pendingClients = users.filter(
+    (u) => u.connected_firm_code && u.connection_status !== "connected"
+  );
 
   return (
     <div className="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
@@ -63,8 +110,8 @@ export default function RegisteredUsers() {
           unique firm code.
         </p>
         <p className="text-sm text-muted-foreground mt-1">
-          Lawyers/firms need your approval below. Clients don't — they connect themselves with a
-          firm code and appear in <span className="font-medium text-foreground">Clients</span>.
+          Lawyers/firms need workspace approval below. Clients who register and connect with your
+          firm code appear below as connection requests to approve.
         </p>
       </div>
 
@@ -94,6 +141,49 @@ export default function RegisteredUsers() {
                 <Button size="sm" disabled={busyId === u.id} onClick={() => toggleAccess(u)}>
                   {busyId === u.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "Approve"}
                 </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!loading && pendingClients.length > 0 && (
+        <div className="rounded-xl border border-indigo-300/70 bg-indigo-50 p-4 space-y-3">
+          <div>
+            <h2 className="font-semibold text-indigo-900">
+              {pendingClients.length} client connection request{pendingClients.length === 1 ? "" : "s"} awaiting
+              approval
+            </h2>
+            <p className="text-sm text-indigo-800/80">
+              These clients registered and connected with your firm code. Approve to give them
+              access to their matters in the client portal.
+            </p>
+          </div>
+          <div className="space-y-2">
+            {pendingClients.map((u) => (
+              <div
+                key={u.id}
+                className="flex items-center justify-between gap-3 rounded-lg border border-indigo-200 bg-white px-4 py-3"
+              >
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{u.full_name || u.email}</div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    {u.email} · Firm code {u.connected_firm_code}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={busyId === u.id}
+                    onClick={() => rejectClient(u)}
+                  >
+                    Decline
+                  </Button>
+                  <Button size="sm" disabled={busyId === u.id} onClick={() => approveClient(u)}>
+                    {busyId === u.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "Approve"}
+                  </Button>
+                </div>
               </div>
             ))}
           </div>

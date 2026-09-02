@@ -50,7 +50,7 @@ export default function FirmConnectPanel({ me, embedded = false }) {
     }
     setBusy(true);
     try {
-      await base44.auth.updateMe({ connected_firm_code: c });
+      await base44.auth.updateMe({ connected_firm_code: c, connection_status: "pending" });
       setMsg({
         ok: true,
         text: `Connection request sent to firm ${c}. Your matters will appear here once the firm confirms your access.`,

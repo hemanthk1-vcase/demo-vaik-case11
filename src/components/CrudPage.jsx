@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Plus, Pencil, Trash2, Search, Loader2 } from "lucide-react";
 
-export default function CrudPage({ entity, title, singular, description, columns, fields, defaultSort = "-created_date", searchKeys }) {
+export default function CrudPage({ entity, title, singular, description, columns, fields, defaultSort = "-created_date", searchKeys, extraActions }) {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
@@ -118,6 +118,7 @@ export default function CrudPage({ entity, title, singular, description, columns
                       <td key={c.key} className="px-4 py-3 whitespace-nowrap">{c.render ? c.render(row) : (row[c.key] ?? "—")}</td>
                     ))}
                     <td className="px-4 py-3 text-right whitespace-nowrap">
+                      {extraActions ? extraActions(row) : null}
                       <Button variant="ghost" size="icon" onClick={() => openEdit(row)}><Pencil className="w-4 h-4" /></Button>
                       <Button variant="ghost" size="icon" onClick={() => remove(row)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
                     </td>
