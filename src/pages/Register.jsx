@@ -121,7 +121,7 @@ export default function Register() {
             {error}
           </div>
         )}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-4">
           <InputOTP
             maxLength={6}
             value={otpCode}
@@ -140,7 +140,7 @@ export default function Register() {
           </InputOTP>
         </div>
         <Button
-          className="w-full h-12 font-medium"
+          className="w-full h-11 font-medium"
           onClick={handleVerify}
           disabled={loading || otpCode.length < 6}
         >
@@ -169,7 +169,7 @@ export default function Register() {
       title="Create your account"
       subtitle="Sign up to get started"
     >
-      <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/50 px-4 py-3">
+      <div className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/50 px-4 py-3">
         <span className="text-sm text-muted-foreground">Already have an account?</span>
         <Button size="sm" asChild>
           <Link to={"/login" + (safeReturnTo() !== "/" ? "?returnTo=" + encodeURIComponent(safeReturnTo()) : "")}>
@@ -180,14 +180,14 @@ export default function Register() {
 
       <Button
         variant="outline"
-        className="w-full h-12 text-sm font-medium mb-6"
+        className="w-full h-11 text-sm font-medium mb-4"
         onClick={handleGoogle}
       >
         <GoogleIcon className="w-5 h-5 mr-2" />
         Continue with Google
       </Button>
 
-      <div className="relative mb-6">
+      <div className="relative mb-4">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-border" />
         </div>
@@ -215,7 +215,7 @@ export default function Register() {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-10 h-11"
               required
             />
           </div>
@@ -231,7 +231,7 @@ export default function Register() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-10 h-11"
               required
             />
           </div>
@@ -247,7 +247,7 @@ export default function Register() {
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-10 h-11"
               required
             />
           </div>
@@ -305,7 +305,7 @@ export default function Register() {
             placeholder="98765 43210"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="h-12"
+            className="h-11"
             required
           />
         </div>
@@ -328,7 +328,7 @@ export default function Register() {
             as set out therein.
           </label>
         </div>
-        <Button type="submit" className="w-full h-12 font-medium" disabled={loading || !consent}>
+        <Button type="submit" className="w-full h-11 font-medium" disabled={loading || !consent}>
           {loading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
