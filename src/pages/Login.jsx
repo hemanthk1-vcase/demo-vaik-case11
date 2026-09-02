@@ -15,6 +15,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loginAs, setLoginAs] = useState("client");
   const returnTo = safeReturnTo();
   const justRegistered = new URLSearchParams(window.location.search).get("registered") === "1";
 
@@ -24,16 +25,8 @@ export default function Login() {
     setLoading(true);
     try {
       await base44.auth.loginViaEmailPassword(email, password);
-      // No explicit destination — route by the role chosen at registration.
-      let dest = returnTo;
-      if (dest === "/") {
-        try {
-          const me = await base44.auth.me();
-          if (me?.account_type === "client") dest = "/client-portal";
-        } catch {
-          // fall through to "/"
-        }
-      }
+      // Route by the role the user explicitly chose on this page.
+      const dest = returnTo !== "/" ? returnTo : loginAs === "client" ? "/client-portal" : "/";
       window.location.href = dest;
     } catch (err) {
       setError(err.message || "Invalid email or password");
@@ -138,6 +131,28 @@ export default function Login() {
                 className="pl-10 h-11"
                 required
               />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label>I am signing in as…</Label>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                ["lawyer", "A lawyer / firm"],
+                ["client", "A client"],
+              ].map(([v, l]) => (
+                <button
+                  type="button"
+                  key={v}
+                  onClick={() => setLoginAs(v)}
+                  className={`h-11 rounded-md border text-sm font-medium transition ${
+                    loginAs === v
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-input bg-background hover:bg-muted/60"
+                  }`}
+                >
+                  {l}
+                </button>
+              ))}
             </div>
           </div>
           <Button type="submit" className="w-full h-11 font-medium" disabled={loading}>
