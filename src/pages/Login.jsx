@@ -16,6 +16,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const returnTo = safeReturnTo();
+  const justRegistered = new URLSearchParams(window.location.search).get("registered") === "1";
 
   // Already signed-in users shouldn't stare at the login form.
   useEffect(() => {
@@ -30,7 +31,17 @@ export default function Login() {
     setLoading(true);
     try {
       await base44.auth.loginViaEmailPassword(email, password);
-      window.location.href = returnTo;
+      // No explicit destination — route by the role chosen at registration.
+      let dest = returnTo;
+      if (dest === "/") {
+        try {
+          const me = await base44.auth.me();
+          if (me?.account_type === "client") dest = "/client-portal";
+        } catch {
+          // fall through to "/"
+        }
+      }
+      window.location.href = dest;
     } catch (err) {
       setError(err.message || "Invalid email or password");
     } finally {
@@ -54,6 +65,12 @@ export default function Login() {
           <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome to Vakil Case</h1>
           <p className="text-muted-foreground mt-1">Sign in to continue</p>
         </div>
+
+        {justRegistered && (
+          <div className="mb-6 p-3 rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 text-sm">
+            Your account is ready — log in with your email and password to continue.
+          </div>
+        )}
 
         {/* Social providers */}
         <div className="space-y-3 mb-6">

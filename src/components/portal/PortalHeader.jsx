@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, LogOut } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
+import { base44 } from "@/api/base44Client";
 
 export default function PortalHeader({ me }) {
   return (
@@ -26,6 +27,13 @@ export default function PortalHeader({ me }) {
             <div className="text-sm font-semibold text-slate-900">{me?.full_name || me?.email}</div>
             <div className="text-xs text-slate-500">{me?.firm_code ? "Firm & Client Portal" : "Client Portal"}</div>
           </div>
+          <button
+            onClick={() => base44.auth.logout("/login")}
+            title="Sign out"
+            className="p-2 rounded-md text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </header>

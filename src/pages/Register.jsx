@@ -82,7 +82,9 @@ export default function Register() {
           // profile details can be completed later — don't block sign-in
         }
       }
-      window.location.href = safeReturnTo();
+      // Registration only creates the account — the user signs in explicitly
+      // on the login page, where they're routed by the role they selected.
+      await base44.auth.logout("/login?registered=1");
     } catch (err) {
       setError(err.message || "Invalid verification code");
     } finally {
