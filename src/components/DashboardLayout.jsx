@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import Sidebar from "@/components/Sidebar";
-import { Loader2, Lock } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 const OWNER_EMAIL = "hemanthk1@gmail.com";
 
@@ -29,20 +28,7 @@ export default function DashboardLayout() {
   if (!user) return <Navigate to="/login" replace />;
 
   const allowed = user.email?.toLowerCase() === OWNER_EMAIL || user.role === "admin";
-  if (!allowed) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-muted">
-          <Lock className="w-7 h-7 text-muted-foreground" />
-        </div>
-        <h1 className="text-xl font-bold">Access restricted</h1>
-        <p className="text-sm text-muted-foreground max-w-sm">
-          This app is private and can only be accessed by the account owner.
-        </p>
-        <Button variant="outline" onClick={() => base44.auth.logout()}>Sign out</Button>
-      </div>
-    );
-  }
+  if (!allowed) return <Navigate to="/client-portal" replace />;
 
   return (
     <div className="flex min-h-screen bg-muted/30">
