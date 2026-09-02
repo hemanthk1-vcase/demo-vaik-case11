@@ -18,7 +18,7 @@ const FEATURES = [
 
 const STATS = [
   ["15+", "Modules"],
-  ["100%", "INR billing"],
+  ["100%", "Local currency billing"],
   ["16", "Case categories"],
   ["Secure", "Access control"],
 ];
@@ -42,7 +42,7 @@ export default function Landing() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" asChild>
-                <Link to="/register">Start free <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                <Link to="/register">Get started <ArrowRight className="w-4 h-4 ml-1" /></Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link to="/pricing">View pricing</Link>
