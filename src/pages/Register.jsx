@@ -22,12 +22,19 @@ export default function Register() {
   const [showOtp, setShowOtp] = useState(false);
   const [otpCode, setOtpCode] = useState("");
   const [consent, setConsent] = useState(false);
+  const [accountType, setAccountType] = useState("client");
+  const [countryCode, setCountryCode] = useState("+91");
+  const [phone, setPhone] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      return;
+    }
+    if (phone.replace(/\D/g, "").length < 7) {
+      setError("A valid phone number is required — your firm uses it to reach you.");
       return;
     }
     if (!consent) {
@@ -52,6 +59,19 @@ export default function Register() {
       const result = await base44.auth.verifyOtp({ email, otpCode });
       if (result?.access_token) {
         base44.auth.setToken(result.access_token);
+        try {
+          const profile = {
+            account_type: accountType,
+            phone,
+            phone_country_code: countryCode,
+          };
+          if (accountType === "lawyer") {
+            profile.firm_code = "VC-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+          }
+          await base44.auth.updateMe(profile);
+        } catch {
+          // profile details can be completed later — don't block sign-in
+        }
       }
       window.location.href = safeReturnTo();
     } catch (err) {
@@ -222,6 +242,57 @@ export default function Register() {
               required
             />
           </div>
+        </div>
+        <div className="space-y-2">
+          <Label>Account type</Label>
+          <div className="grid grid-cols-2 gap-2">
+            {[["client", "I'm a client"], ["lawyer", "I'm a lawyer"]].map(([v, l]) => (
+              <button
+                type="button"
+                key={v}
+                onClick={() => setAccountType(v)}
+                className={`h-11 rounded-md border text-sm font-medium transition ${
+                  accountType === v
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-input bg-background hover:bg-muted/60"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="phone">
+            Phone number <span className="text-destructive">*</span>
+          </Label>
+          <div className="flex flex-wrap gap-2">
+            {[["+91", "🇮🇳 +91"], ["+1", "🇺🇸 +1"], ["+44", "🇬🇧 +44"]].map(([v, l]) => (
+              <button
+                type="button"
+                key={v}
+                onClick={() => setCountryCode(v)}
+                className={`px-3 py-1.5 rounded-md border text-sm font-medium transition ${
+                  countryCode === v
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-input bg-background hover:bg-muted/60"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+          <Input
+            id="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="98765 43210"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="h-12"
+            required
+          />
         </div>
         <div className="flex items-start gap-2 pt-1">
           <Checkbox

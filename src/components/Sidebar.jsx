@@ -6,11 +6,13 @@ import {
   ClipboardList, Receipt, Landmark, Clock, CheckSquare, PenTool, Mail, LogOut,
   GraduationCap,
   Presentation,
+  UserCheck,
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/registered-users", label: "Registrations", icon: UserCheck },
   { to: "/clients", label: "Clients", icon: Users },
   { to: "/cases", label: "Cases", icon: Briefcase },
   { to: "/lawyer-management", label: "Lawyer Management", icon: GraduationCap },

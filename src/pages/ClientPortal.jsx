@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import BrandLogo from "@/components/BrandLogo";
+import FirmConnectPanel from "@/components/portal/FirmConnectPanel";
 import { Button } from "@/components/ui/button";
 import {
   Briefcase, Receipt, FileText, CalendarClock, Building2, ArrowLeft,
@@ -118,24 +119,7 @@ export default function ClientPortal() {
     );
   }
 
-  if (!activeClient) {
-    return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-        <div className="max-w-lg w-full rounded-2xl border border-slate-200 bg-white p-8 text-center">
-          <BrandLogo className="h-16 w-16 mx-auto" />
-          <h1 className="mt-4 text-2xl font-bold text-slate-900">No firm connected yet</h1>
-          <p className="mt-3 text-slate-600">
-            Your lawyer will send you a secure invite by email. If you have a firm code from your
-            law firm, enter it after creating your account — your matters will appear here instantly.
-          </p>
-          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild><Link to="/register">Create your account</Link></Button>
-            <Button variant="outline" asChild><Link to="/welcome"><ArrowLeft className="w-4 h-4 mr-1" /> Back to website</Link></Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  if (!activeClient) return <FirmConnectPanel me={me} />;
 
   const activeCaseCount = cases.filter((c) => !String(c.status).startsWith("closed")).length;
   const outstanding = fees.reduce((s, f) => s + ((f.amount || 0) - (f.amount_paid || 0)), 0);

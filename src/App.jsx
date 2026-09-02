@@ -32,6 +32,7 @@ import About from './pages/marketing/About';
 import ClientPortal from './pages/ClientPortal';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import RegisteredUsers from './pages/RegisteredUsers';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -82,6 +83,7 @@ const AuthenticatedApp = () => {
       {/* App pages (with sidebar) */}
       <Route element={<DashboardLayout />}>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/registered-users" element={<RegisteredUsers />} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/cases" element={<Cases />} />
         <Route path="/lawyer-management" element={<LawyerManagement />} />

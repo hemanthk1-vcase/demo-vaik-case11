@@ -40,7 +40,25 @@
       "type": "string",
       "format": "date-time"
     },
+    "account_type": {
+      "type": "string",
+      "enum": [
+        "lawyer",
+        "client"
+      ],
+      "default": "client"
+    },
     "phone": {
+      "type": "string"
+    },
+    "phone_country_code": {
+      "type": "string",
+      "default": "+91"
+    },
+    "firm_code": {
+      "type": "string"
+    },
+    "connected_firm_code": {
       "type": "string"
     },
     "mobile_phone": {
