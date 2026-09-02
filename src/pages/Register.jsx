@@ -168,18 +168,16 @@ export default function Register() {
       icon={UserPlus}
       title="Create your account"
       subtitle="Sign up to get started"
-      footer={
-        <>
-          Already have an account?{" "}
-          <Link
-            to={"/login" + (safeReturnTo() !== "/" ? "?returnTo=" + encodeURIComponent(safeReturnTo()) : "")}
-            className="text-primary font-medium hover:underline"
-          >
-            Log in
-          </Link>
-        </>
-      }
     >
+      <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/50 px-4 py-3">
+        <span className="text-sm text-muted-foreground">Already have an account?</span>
+        <Button size="sm" asChild>
+          <Link to={"/login" + (safeReturnTo() !== "/" ? "?returnTo=" + encodeURIComponent(safeReturnTo()) : "")}>
+            Sign in
+          </Link>
+        </Button>
+      </div>
+
       <Button
         variant="outline"
         className="w-full h-12 text-sm font-medium mb-6"

@@ -72,6 +72,15 @@ export default function Login() {
           </div>
         )}
 
+        <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-border bg-muted/50 px-4 py-3">
+          <span className="text-sm text-muted-foreground">Need an account?</span>
+          <Button size="sm" asChild>
+            <Link to={"/register" + (returnTo !== "/" ? "?returnTo=" + encodeURIComponent(returnTo) : "")}>
+              Sign up
+            </Link>
+          </Button>
+        </div>
+
         {/* Social providers */}
         <div className="space-y-3 mb-6">
           {providers.map(({ id, label, Icon }) => (
@@ -151,19 +160,10 @@ export default function Login() {
         </form>
 
         {/* Footer links */}
-        <div className="flex items-center justify-between mt-6 text-sm">
+        <div className="text-center mt-6 text-sm">
           <Link to="/forgot-password" className="text-primary hover:underline">
             Forgot password?
           </Link>
-          <span className="text-muted-foreground">
-            Need an account?{" "}
-            <Link
-              to={"/register" + (returnTo !== "/" ? "?returnTo=" + encodeURIComponent(returnTo) : "")}
-              className="text-primary font-medium hover:underline"
-            >
-              Sign up
-            </Link>
-          </span>
         </div>
       </div>
     </div>
