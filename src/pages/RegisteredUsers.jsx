@@ -49,6 +49,9 @@ export default function RegisteredUsers() {
 
   const lawyers = users.filter((u) => u.account_type === "lawyer" || u.account_type === "both");
   const clients = users.filter((u) => u.account_type === "client" || u.account_type === "both");
+  const pending = users.filter(
+    (u) => (u.account_type === "lawyer" || u.account_type === "both") && u.role !== "admin"
+  );
 
   return (
     <div className="p-6 md:p-8 space-y-6 max-w-7xl mx-auto">
@@ -59,7 +62,43 @@ export default function RegisteredUsers() {
           {clients.length} client{clients.length === 1 ? "" : "s"} — with their phone number and
           unique firm code.
         </p>
+        <p className="text-sm text-muted-foreground mt-1">
+          Lawyers/firms need your approval below. Clients don't — they connect themselves with a
+          firm code and appear in <span className="font-medium text-foreground">Clients</span>.
+        </p>
       </div>
+
+      {!loading && pending.length > 0 && (
+        <div className="rounded-xl border border-amber-300/70 bg-amber-50 p-4 space-y-3">
+          <div>
+            <h2 className="font-semibold text-amber-900">
+              {pending.length} signup{pending.length === 1 ? "" : "s"} awaiting your approval
+            </h2>
+            <p className="text-sm text-amber-800/80">
+              Approve a lawyer/firm signup to give it access to your workspace.
+            </p>
+          </div>
+          <div className="space-y-2">
+            {pending.map((u) => (
+              <div
+                key={u.id}
+                className="flex items-center justify-between gap-3 rounded-lg border border-amber-200 bg-white px-4 py-3"
+              >
+                <div className="min-w-0">
+                  <div className="font-medium truncate">{u.full_name || u.email}</div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    {u.email} · {TYPE_LABEL[u.account_type]}
+                    {u.phone ? ` · ${u.phone_country_code || ""} ${u.phone}` : ""}
+                  </div>
+                </div>
+                <Button size="sm" disabled={busyId === u.id} onClick={() => toggleAccess(u)}>
+                  {busyId === u.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "Approve"}
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="bg-card border border-border rounded-xl overflow-hidden">
         {loading ? (
@@ -129,7 +168,7 @@ export default function RegisteredUsers() {
                           ) : u.role === "admin" ? (
                             "Revoke"
                           ) : (
-                            "Grant"
+                            "Approve"
                           )}
                         </Button>
                       ) : (
