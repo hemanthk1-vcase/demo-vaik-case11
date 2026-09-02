@@ -178,6 +178,38 @@ export default function Pricing() {
           </div>
         </section>
 
+        {/* Why we're different */}
+        <section className="py-16 bg-white dark:bg-transparent">
+          <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-center">Why Vakil Case is different</h2>
+            <p className="mt-3 text-center text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+              Most legal platforms bill <strong>per user, per month</strong> — fees climb as your firm grows.
+              We don't.
+            </p>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  title: "Flat per-firm pricing",
+                  body: "Clio, MyCase & PracticePanther charge $39–$149 per user. Our price is per firm — add a paralegal or associate without your bill jumping.",
+                },
+                {
+                  title: "No surprise add-ons",
+                  body: "Trust accounting, e-signature, invoicing and payments are bundled. Competitors gate these behind mid tiers or charge $39/mo extra for accounting.",
+                },
+                {
+                  title: "Transparent INR & USD",
+                  body: "Clear tiers for both regions — no quote-only enterprise wall and no $399 onboarding fee to get started.",
+                },
+              ].map((c) => (
+                <div key={c.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900/60">
+                  <div className="text-base font-semibold text-slate-900 dark:text-slate-100">{c.title}</div>
+                  <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{c.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="py-16 bg-slate-50 dark:bg-slate-900">
           <div className="max-w-3xl mx-auto px-4">
