@@ -314,16 +314,16 @@ export const slides = [
   },
   {
     tag: "Plans & Pricing",
-    title: "Simple plans, in INR",
-    subtitle: "Flat per-firm pricing — every plan is production-ready.",
+    title: "Simple, transparent pricing",
+    subtitle: "No free tier — every plan is production-ready. Save ~17% with annual billing.",
     content: (
       <div className="grid md:grid-cols-3 gap-5">
         <PlanCard
-          name="Starter" price={inr(100)} period="/month" highlight
+          name="Starter" price={inr(100)} period="/month" yearly={inr(1000)} highlight
           features={["1 user", "25 cases", "Invoicing", "Documents", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"]}
         />
         <PlanCard
-          name="Professional" price={inr(350)} period="/month" includes="Starter"
+          name="Professional" price={inr(350)} period="/month" yearly={inr(3500)} includes="Starter"
           features={["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"]}
         />
         <PlanCard
@@ -394,7 +394,7 @@ function SecurityItem({ icon: Icon, t, d }) {
   );
 }
 
-function PlanCard({ name, price, period, features, includes, highlight }) {
+function PlanCard({ name, price, period, features, includes, yearly, highlight }) {
   return (
     <div className={`rounded-2xl border p-6 ${highlight ? "border-indigo-600 ring-2 ring-indigo-600" : "border-slate-200"}`}>
       <div className="text-sm font-semibold text-slate-500">{name}</div>
@@ -402,6 +402,7 @@ function PlanCard({ name, price, period, features, includes, highlight }) {
         <span className="text-3xl font-bold text-slate-900">{price}</span>
         <span className="text-sm text-slate-500 mb-1">{period}</span>
       </div>
+      {yearly && <div className="text-xs text-slate-400 mt-1">or {yearly} billed annually</div>}
       <ul className="mt-4 space-y-2 text-sm text-slate-600">
         {includes && (
           <li className="text-slate-400 italic">Everything in {includes}, plus:</li>

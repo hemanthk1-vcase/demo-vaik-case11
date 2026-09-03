@@ -319,11 +319,11 @@ export function buildVakilPptx() {
 
   // 13 — Pricing
   s = pptx.addSlide();
-  y = header(s, "Plans & Pricing", "Simple plans, in INR", "Flat per-firm pricing — every plan is production-ready.");
+  y = header(s, "Plans & Pricing", "Simple, transparent pricing", "No free tier — every plan is production-ready. Save ~17% with annual billing.");
   const plans = [
-    ["Starter", inr(100), "/month", "1 user\n25 cases\nInvoicing\nDocuments\nClient CRM\nOnline payments & QuickBooks ready\nEmail & chat support"],
-    ["Professional", inr(350), "/month", "Everything in Starter, plus:\n5 users\n100 cases\nTrust accounting\nE-signature\nTime tracking\nOnline payments & QuickBooks ready\nEmail & chat support"],
-    ["Enterprise", "Custom", "", "Everything in Professional, plus:\nMulti-lawyer firm\nSSO + audit logs\n24×5 priority support\nDedicated onboarding\nOnline payments & QuickBooks ready"],
+    ["Starter", inr(100), "/month", "1 user\n25 cases\nInvoicing\nDocuments\nClient CRM\nOnline payments & QuickBooks ready\nEmail & chat support", inr(1000)],
+    ["Professional", inr(350), "/month", "Everything in Starter, plus:\n5 users\n100 cases\nTrust accounting\nE-signature\nTime tracking\nOnline payments & QuickBooks ready\nEmail & chat support", inr(3500)],
+    ["Enterprise", "Custom", "", "Everything in Professional, plus:\nMulti-lawyer firm\nSSO + audit logs\n24×5 priority support\nDedicated onboarding\nOnline payments & QuickBooks ready", ""],
   ];
   const pw = 3.93, gap = 0.15;
   plans.forEach((p, i) => {
@@ -334,7 +334,8 @@ export function buildVakilPptx() {
     s.addText(p[0].toUpperCase(), { x, y: y + (featured ? 0.1 : 0.25), w: pw, h: 0.3, fontSize: 12, bold: true, color: featured ? "FFFFFF" : GRAY, align: "center" });
     s.addText(p[1], { x, y: y + 0.7, w: pw, h: 0.6, fontSize: 26, bold: true, color: DARK, align: "center" });
     s.addText(p[2], { x, y: y + 1.3, w: pw, h: 0.3, fontSize: 12, color: GRAY, align: "center" });
-    s.addText(p[3], { x: x + 0.2, y: y + 1.9, w: pw - 0.4, h: 2.2, fontSize: 11, color: DARK, valign: "top" });
+    if (p[4]) s.addText("or " + p[4] + " billed annually", { x, y: y + 1.6, w: pw, h: 0.28, fontSize: 9, color: GRAY, align: "center" });
+    s.addText(p[3], { x: x + 0.2, y: y + 2.0, w: pw - 0.4, h: 2.0, fontSize: 11, color: DARK, valign: "top" });
   });
   footer(s);
 
