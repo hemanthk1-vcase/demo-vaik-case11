@@ -259,6 +259,28 @@ export function buildVakilPptx() {
   ], y, { fontSize: 15 });
   footer(s);
 
+  // 10b — Built-in AI
+  s = pptx.addSlide();
+  y = header(s, "Screen 8 · Built-in AI", "An AI assistant inside the platform", "Research, draft, and summarize — without ever leaving Vakil Case.");
+  const ai = [
+    ["Legal Research Assistant", "Ask a legal question and get a sourced answer right inside the dashboard."],
+    ["Draft Documents", "Generate first drafts of letters, notices, and client updates from templates."],
+    ["Summarize Case Files", "Condense case history, notes, and hearing logs into a brief summary."],
+    ["Triage Intake Submissions", "AI reviews new intake submissions and flags the matters worth pursuing."],
+  ];
+  ai.forEach((p, i) => {
+    const col = i % 2, row = Math.floor(i / 2);
+    const x = 0.6 + col * 6.2;
+    const yy = y + row * 1.7;
+    s.addShape("roundRect", { x, y: yy, w: 6, h: 1.5, fill: { color: PANEL }, line: { color: LIGHT } });
+    s.addShape("roundRect", { x: x + 0.2, y: yy + 0.2, w: 0.5, h: 0.5, fill: { color: INDIGO } });
+    s.addText(p[0], { x: x + 0.85, y: yy + 0.2, w: 5, h: 0.5, fontSize: 15, bold: true, color: DARK, valign: "middle" });
+    s.addText(p[1], { x: x + 0.2, y: yy + 0.75, w: 5.6, h: 0.65, fontSize: 12, color: GRAY });
+  });
+  s.addShape("roundRect", { x: 0.6, y: y + 3.65, w: 12.1, h: 1.1, fill: { color: "EEF2FF" }, line: { color: "C7D2FE" } });
+  s.addText("Built in — no separate AI accounts or websites to visit. External AI models (e.g., ChatGPT, Claude) can also be connected through the backend, so lawyers never leave your platform.", { x: 0.9, y: y + 3.8, w: 11.5, h: 0.8, fontSize: 13, color: "3730A3" });
+  footer(s);
+
   // 11 — Security
   s = pptx.addSlide();
   y = header(s, "Security & Access Control", "Bank-grade security, by design", "Your firm's data is locked down and accessible only to those you authorise.");

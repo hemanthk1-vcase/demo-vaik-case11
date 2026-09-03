@@ -7,6 +7,7 @@ import {
   GraduationCap,
   Presentation,
   UserCheck,
+  Sparkles,
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
@@ -15,6 +16,7 @@ const NAV = [
   { to: "/registered-users", label: "Registrations", icon: UserCheck },
   { to: "/clients", label: "Clients", icon: Users },
   { to: "/cases", label: "Cases", icon: Briefcase },
+  { to: "/ai-assistant", label: "AI Assistant", icon: Sparkles },
   { to: "/lawyer-management", label: "Lawyer Management", icon: GraduationCap },
   { to: "/presentation", label: "Sales Deck", icon: Presentation },
   { to: "/documents", label: "Documents", icon: FileText },

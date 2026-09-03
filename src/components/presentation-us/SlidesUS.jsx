@@ -3,7 +3,7 @@ import {
   ShieldCheck, Lock, DollarSign, CalendarClock, FileSignature,
   Clock, CheckSquare, Landmark, ClipboardList, Mail, Star,
   Globe, Building2, ArrowRight, Users, Briefcase, Receipt,
-  GraduationCap, FileText, Scale,
+  GraduationCap, FileText, Scale, Sparkles, Bot,
 } from "lucide-react";
 import { MiniAppFrame, KPICard, MiniTable, Pill, FeatureCard } from "@/components/presentation/Mockups";
 import BrandLogo from "@/components/BrandLogo";
@@ -241,6 +241,25 @@ export const slides = [
         <FeatureCard icon={ClipboardList} title="Intake Forms" desc="Publish public intake forms that capture leads and convert them to clients and cases." />
         <FeatureCard icon={Mail} title="Email Log" desc="Track inbound and outbound correspondence linked to cases and clients." />
         <FeatureCard icon={CalendarClock} title="Court Updates" desc="Log hearing outcomes, judges, and next dates to keep every matter current." />
+      </div>
+    ),
+  },
+  {
+    tag: "Screen 8 · Built-in AI",
+    title: "An AI assistant inside the platform",
+    subtitle: "Research, draft, and summarize — without ever leaving Vakil Case.",
+    content: (
+      <div className="grid md:grid-cols-2 gap-5">
+        <FeatureCard icon={Sparkles} title="Legal Research Assistant" desc="Ask a legal question and get a sourced answer right inside the dashboard." />
+        <FeatureCard icon={FileText} title="Draft Documents" desc="Generate first drafts of letters, notices, and client updates from templates." />
+        <FeatureCard icon={Briefcase} title="Summarize Case Files" desc="Condense case history, notes, and hearing logs into a brief summary." />
+        <FeatureCard icon={ClipboardList} title="Triage Intake Submissions" desc="AI reviews new intake submissions and flags the matters worth pursuing." />
+        <div className="md:col-span-2 rounded-xl border border-indigo-200 bg-indigo-50 p-4 flex items-start gap-3">
+          <Bot className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
+          <p className="text-sm text-slate-700">
+            Built in — no separate AI accounts or websites to visit. External AI models (e.g., ChatGPT, Claude) can also be connected through the backend, so lawyers never leave your platform.
+          </p>
+        </div>
       </div>
     ),
   },

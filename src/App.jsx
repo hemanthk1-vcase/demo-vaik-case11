@@ -34,6 +34,7 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import RegisteredUsers from './pages/RegisteredUsers';
 import IntakeForms from './pages/IntakeForms';
+import AiAssistant from './pages/AiAssistant';
 import PublicIntakeForm from './pages/PublicIntakeForm';
 
 const AuthenticatedApp = () => {
@@ -90,6 +91,7 @@ const AuthenticatedApp = () => {
         <Route path="/registered-users" element={<RegisteredUsers />} />
         <Route path="/clients" element={<Clients />} />
         <Route path="/cases" element={<Cases />} />
+        <Route path="/ai-assistant" element={<AiAssistant />} />
         <Route path="/lawyer-management" element={<LawyerManagement />} />
         <Route path="/documents" element={<SectionPlaceholder />} />
         <Route path="/document-templates" element={<SectionPlaceholder />} />
