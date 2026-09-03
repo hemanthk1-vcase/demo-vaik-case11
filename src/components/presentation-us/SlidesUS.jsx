@@ -315,13 +315,25 @@ export const slides = [
   {
     tag: "Plans & Pricing",
     title: "Simple plans, in USD",
-    subtitle: "Start free. Scale as your firm grows.",
+    subtitle: "Flat per-firm pricing — every plan is production-ready.",
     content: (
-      <div className="grid md:grid-cols-4 gap-5">
-        <PlanCard name="Free" price={usd(0)} period="forever" features={["Up to 10 cases", "Basic CRM", "1 user"]} />
-        <PlanCard name="Starter" price={usd(29)} period="/month" features={["Up to 100 cases", "Invoicing", "Documents"]} highlight />
-        <PlanCard name="Professional" price={usd(59)} period="/month" features={["Unlimited cases", "Trust accounting", "E-signature", "Time tracking"]} />
-        <PlanCard name="Enterprise" price="Custom" period="" features={["Multi-lawyer", "SSO + audit logs", "Priority support"]} />
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <PlanCard
+          name="Starter" price={usd(25)} period="/month" highlight
+          features={["1 user", "25 cases", "Invoicing", "Documents", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"]}
+        />
+        <PlanCard
+          name="Professional" price={usd(99)} period="/month" includes="Starter"
+          features={["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"]}
+        />
+        <PlanCard
+          name="Team" price={usd(150)} period="/month" includes="Professional"
+          features={["10 users", "200 cases", "Online payments & QuickBooks ready", "24×5 support"]}
+        />
+        <PlanCard
+          name="Enterprise" price="Custom" period="" includes="Team"
+          features={["Multi-lawyer firm", "SSO + audit logs", "24×5 priority support", "Dedicated onboarding", "Online payments & QuickBooks ready"]}
+        />
       </div>
     ),
   },
@@ -386,7 +398,7 @@ function SecurityItem({ icon: Icon, t, d }) {
   );
 }
 
-function PlanCard({ name, price, period, features, highlight }) {
+function PlanCard({ name, price, period, features, includes, highlight }) {
   return (
     <div className={`rounded-2xl border p-6 ${highlight ? "border-indigo-600 ring-2 ring-indigo-600" : "border-slate-200"}`}>
       <div className="text-sm font-semibold text-slate-500">{name}</div>
@@ -395,6 +407,9 @@ function PlanCard({ name, price, period, features, highlight }) {
         <span className="text-sm text-slate-500 mb-1">{period}</span>
       </div>
       <ul className="mt-4 space-y-2 text-sm text-slate-600">
+        {includes && (
+          <li className="text-slate-400 italic">Everything in {includes}, plus:</li>
+        )}
         {features.map((f) => (
           <li key={f} className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" /> {f}

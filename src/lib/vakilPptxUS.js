@@ -319,23 +319,23 @@ export function buildVakilPptxUS() {
 
   // 13 — Pricing
   s = pptx.addSlide();
-  y = header(s, "Plans & Pricing", "Simple plans, in USD", "Start free. Scale as your firm grows.");
+  y = header(s, "Plans & Pricing", "Simple plans, in USD", "Flat per-firm pricing — every plan is production-ready.");
   const plans = [
-    ["Free", usd(0), "forever", "Up to 10 cases\nBasic CRM\n1 user"],
-    ["Starter", usd(29), "/month", "Up to 100 cases\nInvoicing\nDocuments"],
-    ["Professional", usd(59), "/month", "Unlimited cases\nTrust accounting\nE-signature\nTime tracking"],
-    ["Enterprise", "Custom", "", "Multi-lawyer\nSSO + audit logs\nPriority support"],
+    ["Starter", usd(25), "/month", "1 user\n25 cases\nInvoicing\nDocuments\nClient CRM\nOnline payments & QuickBooks ready\nEmail & chat support"],
+    ["Professional", usd(99), "/month", "Everything in Starter, plus:\n5 users\n100 cases\nTrust accounting\nE-signature\nTime tracking\nOnline payments & QuickBooks ready\nEmail & chat support"],
+    ["Team", usd(150), "/month", "Everything in Professional, plus:\n10 users\n200 cases\nOnline payments & QuickBooks ready\n24×5 support"],
+    ["Enterprise", "Custom", "", "Everything in Team, plus:\nMulti-lawyer firm\nSSO + audit logs\n24×5 priority support\nDedicated onboarding\nOnline payments & QuickBooks ready"],
   ];
   const pw = 2.95, gap = 0.15;
   plans.forEach((p, i) => {
     const x = 0.6 + i * (pw + gap);
-    const featured = i === 2;
+    const featured = i === 0;
     s.addShape("roundRect", { x, y, w: pw, h: 4.2, fill: { color: "FFFFFF" }, line: { color: featured ? INDIGO : LIGHT, width: featured ? 2 : 1 } });
     if (featured) s.addShape("roundRect", { x, y, w: pw, h: 0.5, fill: { color: INDIGO } });
     s.addText(p[0].toUpperCase(), { x, y: y + (featured ? 0.1 : 0.25), w: pw, h: 0.3, fontSize: 12, bold: true, color: featured ? "FFFFFF" : GRAY, align: "center" });
     s.addText(p[1], { x, y: y + 0.7, w: pw, h: 0.6, fontSize: 26, bold: true, color: DARK, align: "center" });
     s.addText(p[2], { x, y: y + 1.3, w: pw, h: 0.3, fontSize: 12, color: GRAY, align: "center" });
-    s.addText(p[3], { x: x + 0.2, y: y + 1.9, w: pw - 0.4, h: 2.1, fontSize: 13, color: DARK, valign: "top" });
+    s.addText(p[3], { x: x + 0.2, y: y + 1.9, w: pw - 0.4, h: 2.3, fontSize: 10, color: DARK, valign: "top" });
   });
   footer(s);
 
