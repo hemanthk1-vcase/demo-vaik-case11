@@ -2,10 +2,10 @@ import React from "react";
 import { Image } from "@/components/ui/image";
 
 export const VAKIL_LOGO_URL =
-  "https://media.base44.com/images/public/6a95d675a12ae82453682890/0ae5015c5_generated_image.png";
+  "https://media.base44.com/images/public/6a95d675a12ae82453682890/cfe9f50b1_generated_image.png";
 
 /**
- * The official Vakil Case logo (scales + sword + "V") in its dark charcoal
+ * The official Vakil Case logo (scales + sword, no letter) in its dark charcoal
  * color. Rendered via the Image component so media.base44.com serves an
  * optimized, responsive copy. `fittingType="fit"` preserves the mark without
  * cropping. Size with `className` (e.g. "h-16 w-16").
