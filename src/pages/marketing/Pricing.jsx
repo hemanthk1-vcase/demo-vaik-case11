@@ -31,20 +31,20 @@ const PLANS = {
     {
       name: "Starter",
       monthly: 25, yearly: 250, currency: "USD",
-      features: ["1 user", "25 cases", "Invoicing", "Documents", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"],
+      features: ["1 user", "10 cases", "Invoicing", "Documents upload", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"],
       highlight: true,
     },
     {
       name: "Professional",
       monthly: 99, yearly: 990, currency: "USD",
       includes: "Starter",
-      features: ["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"],
+      features: ["5 users", "25 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"],
     },
     {
       name: "Team",
       monthly: 150, yearly: 1500, currency: "USD",
       includes: "Professional",
-      features: ["10 users", "200 cases", "Online payments & QuickBooks ready", "24×5 support"],
+      features: ["10 users", "50 cases", "Online payments & QuickBooks ready", "24×5 support"],
     },
     {
       name: "Enterprise",

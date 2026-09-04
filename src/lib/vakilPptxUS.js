@@ -321,9 +321,9 @@ export function buildVakilPptxUS() {
   s = pptx.addSlide();
   y = header(s, "Plans & Pricing", "Simple, transparent pricing", "No free tier — every plan is production-ready. Save ~17% with annual billing.");
   const plans = [
-    ["Starter", usd(25), "/month", "1 user\n25 cases\nInvoicing\nDocuments\nClient CRM\nOnline payments & QuickBooks ready\nEmail & chat support", usd(250)],
-    ["Professional", usd(99), "/month", "Everything in Starter, plus:\n5 users\n100 cases\nTrust accounting\nE-signature\nTime tracking\nOnline payments & QuickBooks ready\nEmail & chat support", usd(990)],
-    ["Team", usd(150), "/month", "Everything in Professional, plus:\n10 users\n200 cases\nOnline payments & QuickBooks ready\n24×5 support", usd(1500)],
+    ["Starter", usd(25), "/month", "1 user\n10 cases\nInvoicing\nDocuments upload\nClient CRM\nOnline payments & QuickBooks ready\nEmail & chat support", usd(250)],
+    ["Professional", usd(99), "/month", "Everything in Starter, plus:\n5 users\n25 cases\nTrust accounting\nE-signature\nTime tracking\nOnline payments & QuickBooks ready\nEmail & chat support", usd(990)],
+    ["Team", usd(150), "/month", "Everything in Professional, plus:\n10 users\n50 cases\nOnline payments & QuickBooks ready\n24×5 support", usd(1500)],
     ["Enterprise", "Custom", "", "Everything in Team, plus:\nMulti-lawyer firm\nSSO + audit logs\n24×5 priority support\nDedicated onboarding\nOnline payments & QuickBooks ready", ""],
   ];
   const pw = 2.95, gap = 0.15;

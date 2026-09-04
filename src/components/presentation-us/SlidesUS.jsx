@@ -320,15 +320,15 @@ export const slides = [
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
         <PlanCard
           name="Starter" price={usd(25)} period="/month" yearly={usd(250)} highlight
-          features={["1 user", "25 cases", "Invoicing", "Documents", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"]}
+          features={["1 user", "10 cases", "Invoicing", "Documents upload", "Client CRM", "Online payments & QuickBooks ready", "Email & chat support"]}
         />
         <PlanCard
           name="Professional" price={usd(99)} period="/month" yearly={usd(990)} includes="Starter"
-          features={["5 users", "100 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"]}
+          features={["5 users", "25 cases", "Trust accounting", "E-signature", "Time tracking", "Online payments & QuickBooks ready", "Email & chat support"]}
         />
         <PlanCard
           name="Team" price={usd(150)} period="/month" yearly={usd(1500)} includes="Professional"
-          features={["10 users", "200 cases", "Online payments & QuickBooks ready", "24×5 support"]}
+          features={["10 users", "50 cases", "Online payments & QuickBooks ready", "24×5 support"]}
         />
         <PlanCard
           name="Enterprise" price="Custom" period="" includes="Team"
