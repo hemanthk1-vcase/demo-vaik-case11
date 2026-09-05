@@ -29,6 +29,7 @@ import ForLawyers from './pages/marketing/ForLawyers';
 import ForClients from './pages/marketing/ForClients';
 import Pricing from './pages/marketing/Pricing';
 import About from './pages/marketing/About';
+import Demo from './pages/marketing/Demo';
 import ClientPortal from './pages/ClientPortal';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
@@ -71,6 +72,7 @@ const AuthenticatedApp = () => {
         <Route path="/for-clients" element={<ForClients />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
+        <Route path="/demo" element={<Demo />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
       </Route>

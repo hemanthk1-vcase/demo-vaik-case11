@@ -57,6 +57,9 @@ export default function Navbar() {
             </>
           ) : (
             <>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/demo">Book a demo</Link>
+              </Button>
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/login">Sign in</Link>
               </Button>
@@ -104,6 +107,9 @@ export default function Navbar() {
                 </Button>
               </>
             )}
+            <Button size="sm" className="w-full mt-2" asChild>
+              <Link to="/demo">Book a demo</Link>
+            </Button>
           </div>
         </div>
       )}
