@@ -1,0 +1,45 @@
+{
+  "description": "Generates and publishes one fresh marketing post to the Vakil Case LinkedIn company page every morning at 6 AM (America/New_York)",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "daily_linkedin_post",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "post_update": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "postDailyLinkedInUpdate",
+            "args": {}
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Publish daily LinkedIn post",
+            "description": "Writes and posts to the Vakil Case page"
+          }
+        }
+      }
+    ]
+  },
+  "name": "Daily LinkedIn Post",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 6 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  }
+}
