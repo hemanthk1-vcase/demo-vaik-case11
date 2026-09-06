@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
-const DEMO_URL = 'https://demo-vaik-case.base44.app/demo';
+const SITE_URL = 'https://www.vakilcase.com';
 
 const TOPICS = [
   'the daily chaos of managing cases with spreadsheets, WhatsApp and paper files',
@@ -76,14 +76,14 @@ export default async function(req) {
         'Audience: solo practitioners and small-to-mid law firm owners who run their firm on spreadsheets, paper files and WhatsApp. ' +
         "Today's post topic: " + topic + '. ' +
         'Requirements: ' +
-        '1) Under 1200 characters total. ' +
-        '2) Professional, practical, warm tone; write like a peer who understands law firm life, not a corporate ad. ' +
+        '1) Keep it short: under 500 characters total, 3-4 short sentences or one short paragraph. ' +
+        '2) Professional, attractive and simple: plain language, no jargon, no repetition, no filler phrases. Every sentence must add value. ' +
         '3) Vary the opening line - never start with a rhetorical question. ' +
         '4) Mention Vakil Case naturally by name once. ' +
-        '5) End with a call to action: "Book a free demo: ' + DEMO_URL + '" on its own line. ' +
-        '6) On the last line add 2-3 hashtags from this set only: #LegalTech #LawFirmManagement #PracticeManagement #LegalPractice. ' +
+        '5) End with the line: "Learn more: ' + SITE_URL + '" on its own line. Never mention any other URL or the word demo booking. ' +
+        '6) On the last line add 2-3 hashtags from this set only: #LegalTech #LawFirmManagement #PracticeManagement. ' +
         '7) No emojis, no markdown formatting, no quotes around the text. ' +
-        '8) Reference that it is written on ' + today + ' only if it fits naturally; otherwise ignore the date. ' +
+        '8) Ignore the date unless it fits naturally. ' +
         'Return only the raw post text.',
       response_json_schema: {
         type: 'object',
