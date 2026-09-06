@@ -78,8 +78,7 @@ export async function generateLinkedInPost(base44, topic) {
       '3) Vary the opening line - never start with a rhetorical question. ' +
       '4) Mention Vakil Case naturally by name once. ' +
       '5) End with the line: "Learn more: ' + SITE_URL + '" on its own line. Never mention any other URL or demo booking. ' +
-      '6) On the last line add 2-3 hashtags from this set only: #LegalTech #LawFirmManagement #PracticeManagement. ' +
-      '7) No emojis, no markdown formatting, no quotes around the text. ' +
+      '6) No emojis, no hashtags, no markdown formatting, no quotes around the text. ' +
       'Return only the raw post text.',
     response_json_schema: {
       type: 'object',
