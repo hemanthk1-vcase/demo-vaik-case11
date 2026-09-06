@@ -1,7 +1,7 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 import { resolveLinkedInOrganization, generateLinkedInPost, topicForDate } from '../../shared/linkedin.ts';
 
-const PREVIEW_EMAIL = 'hemanthk1@gmail.com';
+const PREVIEW_EMAILS = ['hemanthk1@gmail.com', 'hemanthk@yahoo.com'];
 
 // Runs daily at 4 PM ET: writes tomorrow's post, stores it, and emails the
 // exact text that will be published the next morning at 6 AM ET.
@@ -28,16 +28,18 @@ export default async function(req) {
       await base44.entities.LinkedInPost.create({ post_date: tomorrow, topic, content, status: 'pending' });
     }
 
-    await base44.asServiceRole.integrations.Core.SendEmail({
-      to: PREVIEW_EMAIL,
-      subject: 'Tomorrow\'s Vakil Case LinkedIn post (' + tomorrow + ')',
-      body:
-        'Here is the post scheduled to publish on the Vakil Case LinkedIn page tomorrow at 6 AM ET:\n\n' +
-        content +
-        '\n\nYou receive this preview daily at 4 PM ET, the day before publishing.'
-    });
+    for (const to of PREVIEW_EMAILS) {
+      await base44.asServiceRole.integrations.Core.SendEmail({
+        to,
+        subject: 'Tomorrow\'s Vakil Case LinkedIn post (' + tomorrow + ')',
+        body:
+          'Here is the post scheduled to publish on the Vakil Case LinkedIn page tomorrow at 6 AM ET:\n\n' +
+          content +
+          '\n\nYou receive this preview daily at 4 PM ET, the day before publishing.'
+      });
+    }
 
-    return Response.json({ emailed: true, post_date: tomorrow, topic, post: content });
+    return Response.json({ emailed: PREVIEW_EMAILS, post_date: tomorrow, topic, post: content });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
