@@ -1,0 +1,50 @@
+{
+  "name": "LinkedInPost",
+  "type": "object",
+  "properties": {
+    "post_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "published"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "post_date",
+    "content"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

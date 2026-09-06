@@ -1,0 +1,45 @@
+{
+  "name": "Daily LinkedIn Post Preview Email",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "daily_linkedin_post_preview_email",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "generate_preview": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "generateTomorrowLinkedInPost",
+            "args": {}
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Email tomorrow's post preview",
+            "description": "Writes tomorrow's post and emails it to the firm owner"
+          }
+        }
+      }
+    ]
+  },
+  "description": "Every day at 4 PM ET, writes tomorrow's LinkedIn post for the Vakil Case page and emails the exact preview to hemanthk1@gmail.com",
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 16 * * *",
+      "one_time_date": null,
+      "timezone": "America/New_York",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  }
+}
